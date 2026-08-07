@@ -6,12 +6,31 @@ permalink: /news/
 ---
 <header class="page-hero"><div class="shell page-hero-inner"><p class="eyebrow">From the group</p><h1>News &amp; seminars.</h1><p class="page-intro">Announcements, research updates, invited speakers, visitors, and opportunities.</p></div></header>
 <div class="shell page-body">
+  {% assign featured_seminars = site.data.seminars | where: 'featured', true | sort: 'date_iso' | reverse %}
+  {% assign featured = featured_seminars | first %}
+  {% if featured %}
+    <section class="news-seminar-feature" aria-labelledby="featured-seminar-heading">
+      <div class="news-seminar-date">
+        <p class="eyebrow">Featured seminar</p>
+        <time datetime="{{ featured.date_iso }}"><strong>{{ featured.date_iso | date: '%d' }}</strong><span>{{ featured.date_iso | date: '%B' }}</span><small>{{ featured.date_iso | date: '%Y' }}</small></time>
+      </div>
+      <div class="news-seminar-content">
+        <p class="news-seminar-speaker"><strong>{{ featured.speaker }}</strong><span>{{ featured.affiliation }}</span></p>
+        <h2 id="featured-seminar-heading">{{ featured.title }}</h2>
+        {% if featured.abstract %}
+          <div class="news-seminar-abstract"><p class="eyebrow">Abstract</p><p>{{ featured.abstract }}</p></div>
+        {% endif %}
+        <a class="news-seminar-link" href="{{ '/meetings/' | relative_url }}">Group meeting information <span>↗</span></a>
+      </div>
+    </section>
+  {% endif %}
+
   <section class="news-page-section" aria-labelledby="recent-seminars-heading">
     <div class="section-heading">
       <div><p class="eyebrow">Invited speakers</p><h2 class="section-title" id="recent-seminars-heading">Recent seminars.</h2></div>
       <p>The latest seminar program. Meeting times and titles may change.</p>
     </div>
-    {% assign recent_seminars = site.data.seminars | sort: 'date_iso' | reverse %}
+    {% assign recent_seminars = site.data.seminars | where_exp: 'seminar', 'seminar.featured != true' | sort: 'date_iso' | reverse %}
     <div class="news-grid">
       {% for seminar in recent_seminars limit: 4 %}
         <a class="news-card" href="{{ '/meetings/#seminar-schedule-heading' | relative_url }}"><time datetime="{{ seminar.date_iso }}">{{ seminar.date_iso | date: '%B %-d, %Y' }}</time><h2>{{ seminar.title }}</h2><p>{{ seminar.speaker }} · {{ seminar.affiliation }}</p></a>

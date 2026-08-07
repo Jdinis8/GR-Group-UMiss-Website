@@ -50,17 +50,6 @@ permalink: /meetings/
     {% endif %}
   </section>
 
-  {% assign featured_seminars = site.data.seminars | where: 'featured', true | sort: 'date_iso' | reverse %}
-  {% assign featured = featured_seminars | first %}
-  {% if featured %}
-    <section class="seminar-feature" aria-labelledby="featured-seminar-heading">
-      <p class="eyebrow">From the seminar program</p>
-      <h2 id="featured-seminar-heading">{{ featured.title }}</h2>
-      <p class="seminar-speaker">{{ featured.speaker }} · {{ featured.affiliation }}</p>
-      {% if featured.abstract %}<h3>Abstract</h3><p>{{ featured.abstract }}</p>{% endif %}
-    </section>
-  {% endif %}
-
   <section class="meeting-section" aria-labelledby="seminar-schedule-heading">
     <div class="meeting-section-heading">
       <div>

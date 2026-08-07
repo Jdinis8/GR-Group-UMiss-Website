@@ -8,13 +8,10 @@
   label: Postdoctoral researchers
   roles:
     - postdoc
-- key: phd-student
-  label: PhD students
+- key: students
+  label: Students
   roles:
     - phd-student
-- key: masters-student
-  label: Master’s students
-  roles:
     - masters-student
 - key: undergraduate
   label: Undergraduate researchers

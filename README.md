@@ -42,9 +42,10 @@ affiliate
 ```
 
 All professor ranks appear together under Faculty, but `role_label` preserves
-the rank shown on each card. People are sorted by `last_name`; use an
-unaccented spelling in that field when necessary, such as `Alvares` for
-Álvares.
+the rank shown on each card. PhD and master’s students similarly appear under
+Students while retaining their individual `role_label`. People are sorted by
+`last_name`; use an unaccented spelling in that field when necessary, such as
+`Alvares` for Álvares.
 
 Profile links are optional. The supported fields are `email`, `website`,
 `olemiss_profile`, `scholar`, `orcid`, `openalex_id`, `inspire`, and `cv`.
@@ -96,7 +97,7 @@ talk once using a `date_iso` value in `YYYY-MM-DD` format. The website sorts
 the file automatically: the newest talks appear on the homepage, News &
 Seminars page, and Meetings page, while `/seminars/` shows the complete list by
 year. Add `featured: true` and an `abstract` when a talk should receive the
-larger feature on the Meetings page.
+larger feature on the News & Seminars page.
 
 ```yaml
 - date_iso: '2026-09-10'
