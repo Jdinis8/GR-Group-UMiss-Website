@@ -4,6 +4,7 @@ last_name: Stein
 role: full-professor
 role_label: Full Professor
 tagline: Black holes, gravitational waves, general relativity, and physics beyond Einstein.
+photo: /assets/images/people/lstein.jpeg
 research:
   - Black-hole physics
   - Gravitational waves

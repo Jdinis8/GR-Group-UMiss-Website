@@ -4,6 +4,7 @@ last_name: Gupta
 role: full-professor
 role_label: Full Professor
 tagline: Gravitational-wave astronomy, compact objects, and tests of fundamental physics.
+photo: /assets/images/people/agupta.jpeg
 research:
   - Gravitational-wave astronomy and astrophysics
   - Black holes and neutron stars

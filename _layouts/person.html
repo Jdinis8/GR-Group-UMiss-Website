@@ -5,7 +5,7 @@ layout: default
   <div class="shell profile-grid">
     <div class="profile-image-wrap">
       {% if page.photo %}
-        <img class="profile-image" src="{{ page.photo | relative_url }}" alt="Portrait of {{ page.name }}" width="720" height="880">
+        <img class="profile-image" src="{{ page.photo | relative_url }}" alt="Portrait of {{ page.name }}" width="720" height="864">
       {% else %}
         <div class="profile-image photo-placeholder"><span>{{ page.name | slice: 0 }}</span></div>
       {% endif %}

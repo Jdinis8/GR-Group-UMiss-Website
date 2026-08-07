@@ -4,6 +4,7 @@ last_name: Sharma
 role: phd-student
 role_label: PhD Student
 tagline: Gravitational-wave cosmology and the science of future observatories.
+photo: /assets/images/people/asharma.jpeg
 research:
   - Gravitational-wave cosmology
   - Compact-binary populations

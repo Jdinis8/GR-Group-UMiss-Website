@@ -4,6 +4,7 @@ last_name: MacDonald
 role: assistant-professor
 role_label: Assistant Professor
 tagline: Relativistic black-hole jets, radio astronomy, and high-energy astrophysics.
+photo: /assets/images/people/nmacdonald.jpeg
 research:
   - Relativistic and extragalactic jets
   - Black-hole astrophysics

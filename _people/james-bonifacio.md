@@ -4,6 +4,7 @@ last_name: Bonifacio
 role: assistant-professor
 role_label: Assistant Professor
 tagline: Gravitational physics, effective field theory, scattering amplitudes, and spectral geometry.
+photo: /assets/images/people/jbonifacio.jpeg
 research:
   - Effective field theory and scattering amplitudes
   - Gravitational physics

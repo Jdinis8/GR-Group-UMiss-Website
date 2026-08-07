@@ -2,7 +2,7 @@
 <article class="person-card" data-role="{{ person.role }}">
   <a class="person-photo" href="{{ person.url | relative_url }}" aria-label="View {{ person.name }}’s profile">
     {% if person.photo %}
-      <img src="{{ person.photo | relative_url }}" alt="Portrait of {{ person.name }}" loading="lazy" width="560" height="680">
+      <img src="{{ person.photo | relative_url }}" alt="Portrait of {{ person.name }}" loading="lazy" width="560" height="672">
     {% else %}
       <span class="photo-placeholder" aria-hidden="true"><span>{{ person.name | slice: 0 }}</span></span>
     {% endif %}
@@ -14,4 +14,3 @@
     <a class="text-link" href="{{ person.url | relative_url }}">Profile <span aria-hidden="true">↗</span></a>
   </div>
 </article>
-

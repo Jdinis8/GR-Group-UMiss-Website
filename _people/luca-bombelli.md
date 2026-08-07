@@ -4,6 +4,7 @@ last_name: Bombelli
 role: full-professor
 role_label: Full Professor
 tagline: Gravitational theory, quantum spacetime, causal structure, and geometry.
+photo: /assets/images/people/lbombelli.jpeg
 research:
   - Quantum gravity and causal sets
   - Lorentzian and Riemannian geometry

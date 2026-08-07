@@ -4,6 +4,7 @@ last_name: Singh
 role: phd-student
 role_label: PhD Student
 tagline: Gravitational-wave data analysis and the dynamics of eccentric, precessing binaries.
+photo: /assets/images/people/asingh.webp
 research:
   - Gravitational-wave data analysis
   - Eccentric binary black holes

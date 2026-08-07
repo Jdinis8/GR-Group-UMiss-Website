@@ -4,6 +4,7 @@ last_name: Alvares
 role: phd-student
 role_label: PhD Student
 email: jdlvares@go.olemiss.edu
+photo: /assets/images/people/jda.jpg
 website: https://jdinis8.github.io/
 tagline: Numerical relativity, hyperboloidal evolution, and gravitational-wave physics.
 research:
