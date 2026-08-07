@@ -13,8 +13,8 @@ bundle install
 bundle exec jekyll serve
 ```
 
-The site will be available at <http://localhost:4000>. Stop the server with
-`Ctrl+C`.
+The site will be available at
+<http://localhost:4000/GR-Group-UMiss-Website/>. Stop the server with `Ctrl+C`.
 
 ## Add a current member
 
@@ -159,8 +159,10 @@ API.
 Deployment is handled by `.github/workflows/pages.yml`. In the repository
 settings, choose **Pages → Build and deployment → GitHub Actions**.
 
-Before publishing, set `url` in `_config.yml` to the public domain. Set
-`baseurl` only when the site will live below a path such as `/repository-name`.
+The current GitHub Pages address is `https://jdinis8.github.io/GR-Group-UMiss-Website/`,
+so `_config.yml` uses `https://jdinis8.github.io` as `url` and
+`/GR-Group-UMiss-Website` as `baseurl`. If the site later moves to a custom
+domain, update `url` and set `baseurl` back to an empty string.
 
 ## Other useful files
 

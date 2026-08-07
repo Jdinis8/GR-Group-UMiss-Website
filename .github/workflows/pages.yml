@@ -24,8 +24,7 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
       - uses: actions/configure-pages@v5
-        id: pages
-      - run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+      - run: bundle exec jekyll build
         env:
           JEKYLL_ENV: production
       - uses: actions/upload-pages-artifact@v3
@@ -41,4 +40,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
