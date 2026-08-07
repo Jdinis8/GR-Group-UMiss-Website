@@ -4,6 +4,7 @@ last_name: Bertucci
 role: postdoc
 role_label: Postdoctoral Researcher
 tagline: Conformal bootstrap, effective field theory, scattering amplitudes, and spectral geometry.
+photo: /assets/images/people/fbertucci.jpeg
 research:
   - Conformal field theory and bootstrap methods
   - Effective field theory and positivity bounds
