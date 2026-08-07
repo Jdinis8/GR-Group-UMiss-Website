@@ -1,0 +1,29 @@
+name: Gravity and Astrophysics at Ole Miss
+alternate_names:
+  - University of Mississippi Gravity and Astrophysics Group
+  - Ole Miss Gravity Group
+  - UMiss Gravity Group
+  - Ole Miss General Relativity Group
+description: >-
+  The Gravity and Astrophysics Group at the University of Mississippi studies
+  general relativity, gravitational waves, black holes, relativistic
+  astrophysics, quantum spacetime, and fundamental field theory.
+logo: /assets/images/favicon.svg
+parent:
+  name: University of Mississippi
+  url: https://olemiss.edu/
+address:
+  locality: University
+  region: MS
+  postal_code: "38677"
+  country: US
+same_as:
+  - https://olemiss.edu/physics/research/
+research_areas:
+  - General relativity
+  - Gravitational waves
+  - Black holes
+  - Compact binaries
+  - Relativistic astrophysics
+  - Quantum spacetime
+  - Fundamental field theory

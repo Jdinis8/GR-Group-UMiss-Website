@@ -1,0 +1,34 @@
+{% assign organization = site.data.organization %}
+{% assign organization_url = '/' | absolute_url %}
+{% assign organization_logo = organization.logo | absolute_url %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ResearchOrganization",
+  "@id": {{ organization_url | append: '#organization' | jsonify }},
+  "name": {{ organization.name | jsonify }},
+  "alternateName": {{ organization.alternate_names | jsonify }},
+  "description": {{ organization.description | jsonify }},
+  "url": {{ organization_url | jsonify }},
+  "logo": {
+    "@type": "ImageObject",
+    "url": {{ organization_logo | jsonify }},
+    "width": 512,
+    "height": 512
+  },
+  "parentOrganization": {
+    "@type": "CollegeOrUniversity",
+    "name": {{ organization.parent.name | jsonify }},
+    "url": {{ organization.parent.url | jsonify }}
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": {{ organization.address.locality | jsonify }},
+    "addressRegion": {{ organization.address.region | jsonify }},
+    "postalCode": {{ organization.address.postal_code | jsonify }},
+    "addressCountry": {{ organization.address.country | jsonify }}
+  },
+  "sameAs": {{ organization.same_as | jsonify }},
+  "knowsAbout": {{ organization.research_areas | jsonify }}
+}
+</script>
