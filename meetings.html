@@ -36,10 +36,10 @@ permalink: /meetings/
     <div class="schedule-table-wrap">
       <table class="schedule-table">
         <thead><tr><th scope="col">Date</th><th scope="col">Paper discussion</th><th scope="col">Research update</th></tr></thead>
-        {% assign hidden_meetings = site.data.meetings.schedule.size | minus: 5 %}
+        {% assign sorted_meetings = site.data.meetings.schedule | sort: 'date_iso' | reverse %}
         <tbody id="group-schedule-rows">
-          {% for meeting in site.data.meetings.schedule %}
-            <tr{% if forloop.index0 < hidden_meetings %} data-schedule-extra{% endif %}><td>{{ meeting.date }}</td><td>{{ meeting.paper }}</td><td>{{ meeting.research }}</td></tr>
+          {% for meeting in sorted_meetings %}
+            <tr{% if forloop.index > 5 %} data-schedule-extra{% endif %}><td>{{ meeting.date_iso | date: '%B %-d' }}</td><td>{{ meeting.paper }}</td><td>{{ meeting.research }}</td></tr>
           {% endfor %}
         </tbody>
       </table>

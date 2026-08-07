@@ -3,46 +3,46 @@ time: 12:00 PM–1:00 PM
 schedule_note: This schedule is retained for reference and may have changed.
 
 schedule:
-  - date: February 11
+  - date_iso: '2026-02-11'
     paper: Seminar
     research: Seminar
-  - date: February 18
+  - date_iso: '2026-02-18'
     paper: Subhayu
     research: Dinis
-  - date: February 25
+  - date_iso: '2026-02-25'
     paper: Aniket
     research: Nauman
-  - date: March 4
+  - date_iso: '2026-03-04'
     paper: Dipika
     research: Leo
-  - date: March 11
+  - date_iso: '2026-03-11'
     paper: Spring break
     research: Spring break
-  - date: March 18
+  - date_iso: '2026-03-18'
     paper: APS meeting
     research: APS meeting
-  - date: March 23
+  - date_iso: '2026-03-23'
     paper: Seminar
     research: Seminar
-  - date: March 25
+  - date_iso: '2026-03-25'
     paper: Arindam
     research: Subhayu
-  - date: April 1
+  - date_iso: '2026-04-01'
     paper: Leo
     research: Amitesh
-  - date: April 8
+  - date_iso: '2026-04-08'
     paper: Seminar
     research: Seminar
-  - date: April 13
+  - date_iso: '2026-04-13'
     paper: Seminar
     research: Seminar
-  - date: April 15
+  - date_iso: '2026-04-15'
     paper: Dinis
     research: Arindam
-  - date: April 22
+  - date_iso: '2026-04-22'
     paper: Nauman
     research: Dipika
-  - date: April 29
+  - date_iso: '2026-04-29'
     paper: Amitesh
     research: Aniket
 

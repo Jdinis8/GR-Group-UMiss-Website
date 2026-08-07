@@ -89,6 +89,8 @@ the homepage.
 ## Update group meetings
 
 The weekly schedule and meeting contacts are stored in `_data/meetings.yml`.
+Give each scheduled meeting a `date_iso` value in `YYYY-MM-DD` format; the
+website displays the newest meeting first automatically.
 All invited talks—past and upcoming—belong in `_data/seminars.yml`. Add each
 talk once using a `date_iso` value in `YYYY-MM-DD` format. The website sorts
 the file automatically: the newest talks appear on the homepage, News &
