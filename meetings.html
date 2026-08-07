@@ -1,0 +1,105 @@
+---
+layout: default
+title: Group meetings
+description: Weekly research meetings and seminars of the Ole Miss Gravity and Astrophysics group.
+permalink: /meetings/
+---
+<header class="page-hero">
+  <div class="shell page-hero-inner">
+    <p class="eyebrow">Research exchange</p>
+    <h1>Group meetings.</h1>
+    <p class="page-intro">Weekly discussions of current research, papers of interest, and work in progress.</p>
+  </div>
+</header>
+
+<div class="shell meetings-page">
+  <section class="meeting-overview" aria-labelledby="meeting-format-heading">
+    <div>
+      <p class="eyebrow">Weekly format</p>
+      <h2 id="meeting-format-heading">Research in conversation.</h2>
+    </div>
+    <div class="meeting-overview-copy">
+      <p>The group meets regularly during the academic year. Meetings usually include two short presentations: a discussion of a recent paper and an update from a member of the group.</p>
+      <p>We also invite external speakers to present their work. On seminar days, the seminar replaces the usual meeting format.</p>
+      <p class="meeting-time"><span>Usual time</span>{{ site.data.meetings.time }}</p>
+    </div>
+  </section>
+
+  <section class="meeting-section" aria-labelledby="group-schedule-heading">
+    <div class="meeting-section-heading">
+      <div>
+        <p class="eyebrow">Archived program</p>
+        <h2 id="group-schedule-heading">{{ site.data.meetings.term }} group schedule</h2>
+      </div>
+      <p>{{ site.data.meetings.schedule_note }}</p>
+    </div>
+    <div class="schedule-table-wrap">
+      <table class="schedule-table">
+        <thead><tr><th scope="col">Date</th><th scope="col">Paper discussion</th><th scope="col">Research update</th></tr></thead>
+        {% assign hidden_meetings = site.data.meetings.schedule.size | minus: 5 %}
+        <tbody id="group-schedule-rows">
+          {% for meeting in site.data.meetings.schedule %}
+            <tr{% if forloop.index0 < hidden_meetings %} data-schedule-extra{% endif %}><td>{{ meeting.date }}</td><td>{{ meeting.paper }}</td><td>{{ meeting.research }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if site.data.meetings.schedule.size > 5 %}
+      {% assign extra_meetings = site.data.meetings.schedule.size | minus: 5 %}
+      <button class="schedule-more" type="button" aria-controls="group-schedule-rows" aria-expanded="false" data-schedule-more data-more-count="{{ extra_meetings }}" data-more-label="earlier meetings" hidden>See {{ extra_meetings }} earlier meetings</button>
+    {% endif %}
+  </section>
+
+  {% assign featured_seminars = site.data.seminars | where: 'featured', true | sort: 'date_iso' | reverse %}
+  {% assign featured = featured_seminars | first %}
+  {% if featured %}
+    <section class="seminar-feature" aria-labelledby="featured-seminar-heading">
+      <p class="eyebrow">From the seminar program</p>
+      <h2 id="featured-seminar-heading">{{ featured.title }}</h2>
+      <p class="seminar-speaker">{{ featured.speaker }} · {{ featured.affiliation }}</p>
+      {% if featured.abstract %}<h3>Abstract</h3><p>{{ featured.abstract }}</p>{% endif %}
+    </section>
+  {% endif %}
+
+  <section class="meeting-section" aria-labelledby="seminar-schedule-heading">
+    <div class="meeting-section-heading">
+      <div>
+        <p class="eyebrow">Invited speakers</p>
+        <h2 id="seminar-schedule-heading">Recent seminars</h2>
+      </div>
+      <p>Seminar dates and titles may change.</p>
+    </div>
+    <div class="schedule-table-wrap">
+      <table class="schedule-table seminar-table">
+        <thead><tr><th scope="col">Date</th><th scope="col">Speaker</th><th scope="col">Affiliation</th><th scope="col">Talk</th></tr></thead>
+        <tbody id="recent-seminar-rows">
+          {% assign recent_seminars = site.data.seminars | sort: 'date_iso' | reverse %}
+          {% assign seminar_rows = recent_seminars | slice: 0, 10 %}
+          {% for seminar in seminar_rows %}
+            <tr{% if forloop.index > 5 %} data-schedule-extra{% endif %}><td>{{ seminar.date_iso | date: '%B %-d, %Y' }}</td><td>{{ seminar.speaker }}</td><td>{{ seminar.affiliation }}</td><td>{{ seminar.title }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if seminar_rows.size > 5 %}
+      {% assign extra_seminars = seminar_rows.size | minus: 5 %}
+      <button class="schedule-more" type="button" aria-controls="recent-seminar-rows" aria-expanded="false" data-schedule-more data-more-count="{{ extra_seminars }}" data-more-label="earlier seminars" hidden>See {{ extra_seminars }} earlier seminars</button>
+    {% endif %}
+    <p class="meeting-archive-link"><a class="text-link" href="{{ '/seminars/' | relative_url }}">All seminars <span>→</span></a></p>
+  </section>
+
+  <section class="meeting-contact" aria-labelledby="meeting-contact-heading">
+    <div>
+      <p class="eyebrow">Attend a meeting</p>
+      <h2 id="meeting-contact-heading">Interested in joining us?</h2>
+    </div>
+    <div>
+      <p>Meeting times and locations may change. To attend, contact:</p>
+      <ul>
+        {% for contact in site.data.meetings.contacts %}
+          <li><span>{{ contact.name }}</span><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+</div>

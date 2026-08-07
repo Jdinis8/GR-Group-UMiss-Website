@@ -66,5 +66,20 @@
       });
     }
   }
-})();
 
+  document.querySelectorAll('[data-schedule-more]').forEach((scheduleMore) => {
+    const controlledRows = document.getElementById(scheduleMore.getAttribute('aria-controls'));
+    if (!controlledRows) return;
+    const extraRows = [...controlledRows.querySelectorAll('[data-schedule-extra]')];
+    const moreCount = Number(scheduleMore.dataset.moreCount || extraRows.length);
+    const moreLabel = scheduleMore.dataset.moreLabel || 'more items';
+    extraRows.forEach((row) => { row.hidden = true; });
+    scheduleMore.hidden = false;
+    scheduleMore.addEventListener('click', () => {
+      const expanded = scheduleMore.getAttribute('aria-expanded') !== 'true';
+      scheduleMore.setAttribute('aria-expanded', String(expanded));
+      extraRows.forEach((row) => { row.hidden = !expanded; });
+      scheduleMore.textContent = expanded ? 'Show fewer' : `See ${moreCount} ${moreLabel}`;
+    });
+  });
+})();

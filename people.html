@@ -38,7 +38,7 @@ permalink: /people/
     {% if former_member_count > 0 %}
       <section class="role-section past-members-section" data-role-section="past-members">
         <div class="role-section-head"><h2>Past members</h2><span>{{ former_member_count | prepend: '0' | slice: -2, 2 }}</span></div>
-        <p class="past-members-intro">Former faculty, postdoctoral researchers, students, and visitors who have contributed to the group.</p>
+        <p class="past-members-intro">Former faculty, postdoctoral researchers, students, and visitors who have contributed to the group. Where available, portraits and research topics reflect their time at Ole Miss.</p>
         <div class="former-member-groups">
           {% for group in site.data.former_members %}
             <section class="former-member-group" aria-labelledby="{{ group.key }}-heading">
@@ -48,9 +48,13 @@ permalink: /people/
               </div>
               <ul class="former-member-list">
                 {% for member in group.members %}
-                  <li>
-                    {% if member.website %}<a class="former-member-name" href="{{ member.website }}">{{ member.name }} <span aria-hidden="true">↗</span></a>{% else %}<span class="former-member-name">{{ member.name }}</span>{% endif %}
-                    {% if member.contact %}<span class="former-member-contact">{{ member.contact }}</span>{% endif %}
+                  <li{% if member.photo %} class="has-historical-profile"{% endif %}>
+                    {% if member.photo %}<img class="former-member-photo" src="{{ member.photo | relative_url }}" alt="Portrait of {{ member.name }}" loading="lazy">{% endif %}
+                    <div>
+                      {% if member.website %}<a class="former-member-name" href="{{ member.website }}">{{ member.name }} <span aria-hidden="true">↗</span></a>{% else %}<span class="former-member-name">{{ member.name }}</span>{% endif %}
+                      {% if member.research %}<p class="former-member-research">{{ member.research | join: ' · ' }}</p>{% endif %}
+                      {% if member.contact %}<span class="former-member-contact">{{ member.contact }}</span>{% endif %}
+                    </div>
                   </li>
                 {% endfor %}
               </ul>

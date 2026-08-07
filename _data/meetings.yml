@@ -1,0 +1,53 @@
+term: Spring 2026
+time: 12:00 PM–1:00 PM
+schedule_note: This schedule is retained for reference and may have changed.
+
+schedule:
+  - date: February 11
+    paper: Seminar
+    research: Seminar
+  - date: February 18
+    paper: Subhayu
+    research: Dinis
+  - date: February 25
+    paper: Aniket
+    research: Nauman
+  - date: March 4
+    paper: Dipika
+    research: Leo
+  - date: March 11
+    paper: Spring break
+    research: Spring break
+  - date: March 18
+    paper: APS meeting
+    research: APS meeting
+  - date: March 23
+    paper: Seminar
+    research: Seminar
+  - date: March 25
+    paper: Arindam
+    research: Subhayu
+  - date: April 1
+    paper: Leo
+    research: Amitesh
+  - date: April 8
+    paper: Seminar
+    research: Seminar
+  - date: April 13
+    paper: Seminar
+    research: Seminar
+  - date: April 15
+    paper: Dinis
+    research: Arindam
+  - date: April 22
+    paper: Nauman
+    research: Dipika
+  - date: April 29
+    paper: Amitesh
+    research: Aniket
+
+contacts:
+  - name: Leo Stein
+    email: lcstein@olemiss.edu
+  - name: Anuradha Gupta
+    email: agupta1@olemiss.edu

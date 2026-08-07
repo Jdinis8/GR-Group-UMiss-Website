@@ -1,0 +1,275 @@
+# Add new talks here; pages sort this list by date automatically.
+- date_iso: '2026-04-13'
+  speaker: Dr. Aditya Vijaykumar
+  affiliation: Canadian Institute for Theoretical Astrophysics
+  title: Subpopulations of hierarchical mergers in gravitational-wave data and their
+    implications
+  featured: true
+  abstract: The most recent observing run of the LIGO–Virgo–KAGRA gravitational-wave
+    detectors has presented multiple lines of evidence hinting at hierarchical mergers
+    in the data. This talk gives an overview of the hierarchical-merger subpopulation,
+    concentrating on spin, mass-ratio, and redshift distributions. It also considers
+    theoretical interpretations in the context of binary evolution in dense star clusters
+    and examines whether hierarchical mergers can explain observed correlations between
+    effective spin, mass ratio, and redshift.
+- date_iso: '2026-04-08'
+  speaker: Sercan Husnugil
+  affiliation: University of Waterloo
+  title: 'Black holes and Carrollian fluids: what can they teach us about each other?'
+- date_iso: '2026-03-23'
+  speaker: Dr. Hayley Macpherson
+  affiliation: University of Chicago
+  title: Numerical relativity as a tool for precision cosmology
+- date_iso: '2026-02-11'
+  speaker: Dr. Shilpa Kastha
+  affiliation: Saha Institute of Nuclear Physics
+  title: Slipping into the inspiral
+- date_iso: '2025-11-06'
+  speaker: Marica Minucci
+  affiliation: NBI, Copenhagen
+  title: Conserved Currents and Bilinear Forms for Quasinormal Modes in the Hyperboloidal
+    Formalism
+- date_iso: '2025-10-23'
+  speaker: Nils Siemonsen
+  affiliation: Princeton University
+  title: 'Ergoregion instability: the nonlinear story'
+- date_iso: '2025-10-09'
+  speaker: Maxence Corman
+  affiliation: AEI Potsdam
+  title: Nonlinear dynamics of compact object mergers beyond General Relativity
+- date_iso: '2025-09-29'
+  speaker: Chris Kavanagh
+  affiliation: University College Dublin
+  title: Progress and prospects with analytic perturbation theory for small-mass-ratio
+    compact binaries
+- date_iso: '2025-08-06'
+  speaker: Rico Lo
+  affiliation: NBI
+  title: Quasinormal modes and excitation factors of Kerr black holes – isn’t it a
+    solved problem?
+- date_iso: '2025-06-25'
+  speaker: Áron Kovács
+  affiliation: QMUL
+  title: Well-posed initial value formulation of general effective field theories
+    of gravity
+- date_iso: '2025-06-13'
+  speaker: Stephen Green
+  affiliation: Nottingham
+  title: Neural posterior estimation for gravitational-wave inference
+- date_iso: '2025-06-11'
+  speaker: David Trestini
+  affiliation: Southampton
+  title: Modeling gravitational waves from compact binaries in scalar tensor theories
+    within the post-Newtonian approximation
+- date_iso: '2025-04-30'
+  speaker: Macarena Lagos
+  affiliation: UNAB
+  title: Nonlinear gravitational wave ringdown
+- date_iso: '2025-04-28'
+  speaker: Patrick Dawson
+  affiliation: University of Sydney
+  title: Prospects for presentism in the context of modern physics
+- date_iso: '2025-04-16'
+  speaker: Konstantinos Kritos
+  affiliation: Johns Hopkins
+  title: Merging black holes in star clusters
+- date_iso: '2025-03-26'
+  speaker: Raj Patil
+  affiliation: AEI Potsdam
+  title: 'Precision Gravity: Gravitational waves using Feynman diagrams'
+- date_iso: '2024-11-21'
+  speaker: Sizheng Ma
+  affiliation: Perimeter
+  title: Black Hole Spectroscopy Beyond Linear Quasinormal Modes
+- date_iso: '2024-11-14'
+  speaker: David Shlivko
+  affiliation: Princeton
+  title: 'Beyond the cosmological constant: Detecting dynamical dark energy'
+- date_iso: '2024-10-31'
+  speaker: Jan Kożuszek
+  affiliation: Imperial
+  title: The dynamics of dRGT massive gravity
+- date_iso: '2024-09-26'
+  speaker: Nils Vu
+  affiliation: Caltech
+  title: Solving elliptic equations on supercomputers – black holes, thermal noise,
+    and self force
+- date_iso: '2024-07-26'
+  speaker: Isabella Pretto
+  affiliation: Caltech
+  title: Determining the end time of junk radiation in binary black hole simulations
+- date_iso: '2024-07-12'
+  speaker: Divya Singh
+  affiliation: Penn State
+  title: Exploring Dark Matter with Gravitational Wave observations
+- date_iso: '2024-04-25'
+  speaker: Shrobana Ghosh
+  affiliation: AEI Hannover
+  title: Inspiral-Merger-Ringdown waveform modeling to estimate spins of astrophysical
+    black holes
+- date_iso: '2024-04-11'
+  speaker: Sebastian Völkel
+  affiliation: AEI Potsdam
+  title: One ring to rule them all? Quasi-normal modes and the black hole ringdown
+- date_iso: '2024-03-28'
+  speaker: Yanyan Zheng
+  affiliation: Missouri S&T
+  title: Detecting gravitational waves from core-collapse supernovae
+- date_iso: '2024-03-21'
+  speaker: Isobel Romero-Shaw
+  affiliation: University of Cambridge
+  title: Decoding the Gravitational-Wave Biographies of Binary Black Holes
+- date_iso: '2023-11-17'
+  speaker: Laura Sberna
+  affiliation: Max Planck Institute for Gravitational Physics
+  title: New problems and methods in black hole perturbation theory
+- date_iso: '2023-10-23'
+  speaker: Justin Ripley
+  affiliation: University of Illinois, Urbana-Champaign
+  title: Probing internal dissipative processes of neutron stars with gravitational
+    waves during the inspiral
+- date_iso: '2023-09-18'
+  speaker: Bence Bécsy
+  affiliation: Oregon State University
+  title: 'Nanohertz gravitational waves: the cosmic symphony and its soloists'
+- date_iso: '2023-08-16'
+  speaker: Anıl Zenginoğlu
+  affiliation: Maryland
+  title: Hyperbolic Geometry and Black Holes
+- date_iso: '2023-07-14'
+  speaker: Aru Beri
+  affiliation: IISER Mohali
+  title: Probing strong field gravity using fast-timing and multi-wavelength diagnostics
+    and prospects with X-ray polarization
+- date_iso: '2023-07-05'
+  speaker: Sharan Banagiri
+  affiliation: Northwestern
+  title: 'Accessing the astrophysical significance of gravitational-wave triggers:
+    A unified p-astro approach'
+- date_iso: '2023-06-07'
+  speaker: Rita Teixeira da Costa
+  affiliation: Princeton
+  title: Revisiting mode stability for Kerr(-dS) black holes
+- date_iso: '2023-04-12'
+  speaker: José Tomás G. Ghersi
+  affiliation: 'Universidad de Ingeniería y Tecnología: Lima, Lima, PE'
+  title: Dimensional deformation of sine-Gordon breathers into oscillons
+- date_iso: '2023-03-22'
+  speaker: Michael Pajkos
+  affiliation: Caltech
+  title: 'Cause & Effect: How Relativity Impacts Our Understanding of Supernova Evolution'
+- date_iso: '2023-02-22'
+  speaker: Elena Giorgi
+  affiliation: Columbia University
+  title: Black Hole Stability Problems in GR
+- date_iso: '2022-11-14'
+  speaker: Aaron Zimmerman
+  affiliation: UT Austin
+  title: Transition dynamics in numerical simulations and ringdown beyond-GR
+- date_iso: '2022-10-24'
+  speaker: Anna Ijjas
+  affiliation: NYU
+  title: Advancing Cosmology with Numerical Relativity
+- date_iso: '2022-10-03'
+  speaker: Mikhail Solon
+  affiliation: UCLA
+  title: Quantum Field Theory Tools for Gravitational Wave Science
+- date_iso: '2022-07-19'
+  speaker: Fabrizio Di Giovanni
+  affiliation: University of Valencia
+  title: Nonlinear dynamics of boson and fermion-boson stars
+- date_iso: '2022-06-28'
+  speaker: Alex Vano-Vinuales
+  affiliation: ULisboa
+  title: Current numerical efforts on free hyperboloidal evolution
+- date_iso: '2022-05-31'
+  speaker: Tousif Islam
+  affiliation: University of Massachusetts Dartmouth
+  title: Surrogate model for gravitational wave signals from non-spinning, comparable-
+    to large-mass-ratio black hole binaries built on black hole perturbation theory
+    waveforms calibrated to numerical relativity
+- date_iso: '2022-04-21'
+  speaker: Lisa Drummond
+  affiliation: MIT
+  title: Precisely computing bound orbits of spinning bodies around black holes
+- date_iso: '2022-03-10'
+  speaker: Bin Liu
+  affiliation: Niels Bohr Institute
+  title: Binary dynamics near a rotating supermassive black hole
+- date_iso: '2022-02-10'
+  speaker: Tanja Hinderer
+  affiliation: Utrecht University
+  title: Probing subatomic physics with gravitational waves from neutron star binary
+    inspirals
+- date_iso: '2021-12-09'
+  speaker: Nathan Johnson-McDaniel
+  affiliation: U Mississippi
+  title: 'Extracting information from gravitational-wave observations: From tests
+    of general relativity to astrophysics'
+- date_iso: '2021-12-02'
+  speaker: Károly Czukás
+  affiliation: U Mississippi
+  title: Numerical investigation of linear perturbations and solutions to constraint
+    equations in general relativity
+- date_iso: '2021-10-07'
+  speaker: Xiang Li
+  affiliation: Caltech
+  title: Angular emission patterns of remnant black holes — Towards a more complete
+    temporal-spatial fitting
+- date_iso: '2021-08-19'
+  speaker: Paolo Pani
+  affiliation: Sapienza University, Rome, Italy
+  title: Black-hole microstate spectroscopy
+- date_iso: '2021-08-12'
+  speaker: Tomas Galvez Ghersi
+  affiliation: CITA, Canada
+  title: Rescheduled
+- date_iso: '2021-08-05'
+  speaker: Will Farr
+  affiliation: Stony Brook University
+  title: 'Ringing Black Holes, Massive Neutron Stars, and Black Hole Cosmology: Recent
+    Results and Future Directions from LIGO and Virgo’s Observations of Gravitational
+    Waves'
+- date_iso: '2021-07-15'
+  speaker: Sajal Mukherjee
+  affiliation: Astronomical Institute of the Czech Academy of Sciences
+  title: Detecting Gravitational Waves from Hyperbolic encounters
+- date_iso: '2021-06-24'
+  speaker: Imre Bartos
+  affiliation: University of Florida
+  title: Black hole assembly lines in AGN disks
+- date_iso: '2021-04-29'
+  speaker: Sabrina Pasterski
+  affiliation: Princeton University
+  title: Progress in Celestial Amplitudes
+- date_iso: '2021-04-07'
+  speaker: Sara Issaoun
+  affiliation: Radboud University, Netherlands
+  title: Magnetic Fields Near a Black Hole
+- date_iso: '2021-03-18'
+  speaker: Deborah Ferguson
+  affiliation: University of Texas, Austin
+  title: Assessing the Preparedness of Numerical Relativity for Current and Future
+    Gravitational Wave Detectors
+- date_iso: '2021-02-18'
+  speaker: Niels Warburton
+  affiliation: University College Dublin
+  title: Gravitational waves from extreme mass-ratio inspirals
+- date_iso: '2020-12-10'
+  speaker: Edgar Shaghoulian
+  affiliation: University of Pennsylvania
+  title: Replica wormholes and the black hole information paradox
+- date_iso: '2020-11-12'
+  speaker: Rob Farmer
+  affiliation: University of Amsterdam, Amsterdam, Netherlands
+  title: 'Mind the gap: What can we learn about stellar astrophysics from gravitational
+    wave detections of binary black holes?'
+- date_iso: '2020-10-15'
+  speaker: Sarah Vigeland
+  affiliation: University of Wisconsin, Milwaukee
+  title: 'Merging Galaxies and Supermassive Black Holes: Detecting Gravitational Waves
+    with Pulsar Timing Arrays'
+- date_iso: '2020-10-01'
+  speaker: David Hilditch
+  affiliation: CENTRA, Lisboa
+  title: Putting Infinity on the Grid

@@ -1,14 +1,46 @@
 ---
 layout: default
-title: News
+title: News & Seminars
 description: News, seminars, and announcements from the Ole Miss Gravity and Astrophysics group.
 permalink: /news/
 ---
-<header class="page-hero"><div class="shell page-hero-inner"><p class="eyebrow">News &amp; events</p><h1>Group news.</h1><p class="page-intro">Announcements, research updates, visitors, seminars, and opportunities.</p></div></header>
+<header class="page-hero"><div class="shell page-hero-inner"><p class="eyebrow">From the group</p><h1>News &amp; seminars.</h1><p class="page-intro">Announcements, research updates, invited speakers, visitors, and opportunities.</p></div></header>
 <div class="shell page-body">
-  {% if site.posts.size > 0 %}
-    <div class="news-grid">{% for post in site.posts %}<a class="news-card" href="{{ post.url | relative_url }}"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%B %d, %Y' }}</time><h2>{{ post.title }}</h2>{% if post.excerpt %}<p>{{ post.excerpt | strip_html | truncate: 145 }}</p>{% endif %}</a>{% endfor %}</div>
-  {% else %}
-    <div class="prose"><h2>No news has been posted yet.</h2></div>
+  <section class="news-page-section" aria-labelledby="recent-seminars-heading">
+    <div class="section-heading">
+      <div><p class="eyebrow">Invited speakers</p><h2 class="section-title" id="recent-seminars-heading">Recent seminars.</h2></div>
+      <p>The latest seminar program. Meeting times and titles may change.</p>
+    </div>
+    {% assign recent_seminars = site.data.seminars | sort: 'date_iso' | reverse %}
+    <div class="news-grid">
+      {% for seminar in recent_seminars limit: 4 %}
+        <a class="news-card" href="{{ '/meetings/#seminar-schedule-heading' | relative_url }}"><time datetime="{{ seminar.date_iso }}">{{ seminar.date_iso | date: '%B %-d, %Y' }}</time><h2>{{ seminar.title }}</h2><p>{{ seminar.speaker }} · {{ seminar.affiliation }}</p></a>
+      {% endfor %}
+    </div>
+    <p class="news-section-link"><a class="text-link" href="{{ '/seminars/' | relative_url }}">Seminar archive <span>↗</span></a></p>
+  </section>
+
+  <section class="news-page-section" aria-labelledby="group-news-heading">
+    <div class="section-heading">
+      <div><p class="eyebrow">Announcements</p><h2 class="section-title" id="group-news-heading">Group news.</h2></div>
+      <p>Research updates, visitors, milestones, and opportunities.</p>
+    </div>
+    {% assign current_posts = site.posts | where_exp: 'post', 'post.archive != true' %}
+    {% if current_posts.size > 0 %}
+      <div class="news-grid">{% for post in current_posts %}<a class="news-card" href="{{ post.url | relative_url }}"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%B %d, %Y' }}</time><h2>{{ post.title }}</h2>{% if post.excerpt %}<p>{{ post.excerpt | strip_html | truncate: 145 }}</p>{% endif %}</a>{% endfor %}</div>
+    {% else %}
+      <div class="prose"><h2>No news has been posted yet.</h2></div>
+    {% endif %}
+  </section>
+
+  {% assign archived_posts = site.posts | where: 'archive', true %}
+  {% if archived_posts.size > 0 %}
+    <section class="news-page-section" aria-labelledby="news-archive-heading">
+      <div class="section-heading">
+        <div><p class="eyebrow">Earlier stories</p><h2 class="section-title" id="news-archive-heading">From the archive.</h2></div>
+        <p>Press coverage, outreach, and group milestones preserved from the former website.</p>
+      </div>
+      <div class="news-grid">{% for post in archived_posts %}<a class="news-card" href="{{ post.url | relative_url }}"><time datetime="{{ post.date | date_to_xmlschema }}">Archive · {{ post.date | date: '%B %d, %Y' }}</time><h2>{{ post.title }}</h2>{% if post.excerpt %}<p>{{ post.excerpt | strip_html | truncate: 145 }}</p>{% endif %}</a>{% endfor %}</div>
+    </section>
   {% endif %}
 </div>

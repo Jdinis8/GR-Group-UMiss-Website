@@ -2,10 +2,18 @@
   label: Former faculty
   members:
     - name: Marco Cavaglia
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Marco
+      photo: /assets/images/former-members/marco-cavaglia.jpg
+      research:
+        - Gravitational-wave detection
+        - Astrophysics and cosmology
+        - High-energy physics
       contact: cavaglia at phy.olemiss.edu
     - name: Emanuele Berti
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Emanuele
+      photo: /assets/images/former-members/emanuele-berti.jpg
+      research:
+        - Gravitational-wave source modeling
+        - Black-hole perturbation theory
+        - Tests of general relativity
       contact: eberti at jhu.edu
 
 - key: former-visiting-faculty
@@ -19,41 +27,64 @@
   label: Former postdocs
   members:
     - name: Shivaraj Kandhasamy
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Shivaraj
       contact: shivaraj.kandhasamy at ligo.org
     - name: Vitor Cardoso
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Vitor
+      photo: /assets/images/former-members/vitor-cardoso.png
+      research:
+        - Black-hole perturbation theory
+        - Gravitational waves
+        - Stability of spacetimes
       contact: cardoso at phy.olemiss.edu
     - name: Alejandro Corichi
-      website: http://www.matmor.unam.mx/~corichi/
+      website: https://www.matmor.unam.mx/~corichi/
       contact: corichi at matmor.unam.mx
     - name: Alexander Dietz
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Alexander
+      photo: /assets/images/former-members/alexander-dietz.jpg
+      research:
+        - Gravitational-wave detection
+        - Astrophysics
       contact: dietz at phy.olemiss.edu
     - name: Michael Horbatsch
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Michael
+      photo: /assets/images/former-members/michael-horbatsch.jpg
+      research:
+        - Alternative theories of gravity
+        - Post-Newtonian theory
+        - Numerical relativity
       contact: mwhorbatsch at gmail.com
     - name: Antoine Klein
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Antoine
+      photo: /assets/images/former-members/antoine-klein.png
+      research:
+        - Gravitational-wave source simulations
+        - Black-hole binaries
+        - Space-based detectors
       contact: antoine.klein at gmail.com
     - name: Atsushi Nishizawa
-      website: http://www.phy.olemiss.edu/~anishi/
+      website: https://astrophys.hiroshima-u.ac.jp/~atnishi/
       contact: anishi at phy.olemiss.edu
     - name: George Pappas
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=George
+      photo: /assets/images/former-members/george-pappas.jpg
+      research:
+        - Compact objects
+        - Gravitational-wave sources
+        - Modified gravity
       contact: gpappas at olemiss.edu
     - name: Jocelyn Read
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Jocelyn
-      contact: jsread at relativity.phy.olemiss.edu
+      photo: /assets/images/former-members/jocelyn-read.jpg
+      research:
+        - Gravitational-wave source modeling
+        - Neutron-star equations of state
+        - Numerical relativity
 
 - key: former-students
   label: Former students
   members:
     - name: Mir Emad Aghili
-      website: https://relativity.phy.olemiss.edu/~emad/
       contact: maghili at go.olemiss.edu
     - name: Shrobana Ghosh
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=shrobana-ghosh
+      photo: /assets/images/former-members/shrobana-ghosh.jpg
+      research:
+        - Black-hole perturbations
+        - Gravitational-wave source modeling
       contact: sghosh2 at go.olemiss.edu
     - name: Nauman Ibrahim
     - name: Saeed Kamali
@@ -71,41 +102,62 @@
     - name: Sashwat Tanay
       contact: stanay at go.olemiss.edu
     - name: Cody Arceneaux
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Arceneaux
+      photo: /assets/images/former-members/cody-arceneaux.jpg
+      research:
+        - Gravitational-wave physics
+        - LIGO data analysis
       contact: ccarcene at go.olemiss.edu
     - name: Brett Bolen
       website: https://www.gvsu.edu/physics/dr-brett-bolen-62.htm
       contact: bolenbr at gvsu.edu
     - name: Jericho Cain
     - name: Caixia “Sky” Gao
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Sky
+      photo: /assets/images/former-members/caixia-sky-gao.jpg
+      research:
+        - Quantum gravity
+        - Cosmology
       contact: cgao1 at go.olemiss.edu
     - name: Jun-Qi Guo
       contact: ga35 at sfu.ca
     - name: Barnabas Kipapa
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Barnabas
+      photo: /assets/images/former-members/barnabas-kipapa.jpg
+      research:
+        - Black-hole perturbation theory
+        - Gravitational-wave phenomenology
       contact: brkipapa at olemiss.edu
     - name: Brian Mazur
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Brian
+      photo: /assets/images/former-members/brian-mazur.jpg
+      research:
+        - Galactic dynamics
+        - Dark matter
       contact: Brian.Mazur at rockets.utoledo.edu
     - name: Arif Mohd
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Arif
+      photo: /assets/images/former-members/arif-mohd.jpg
+      research:
+        - Quantum gravity
+        - Black-hole entropy
       contact: arif.mohd at sissa.it
     - name: Hector Okada da Silva
-      website: http://www.phy.olemiss.edu/~hosilva/index.html
+      website: https://hosilva.web.illinois.edu/
       contact: hector.okadadasilva at montana.edu
     - name: Brooke Rankins
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Brooke
+      photo: /assets/images/former-members/brooke-rankins.jpg
+      research:
+        - Gravitational-wave detection
+        - Gravitational-wave data analysis
       contact: rankins at phy.olemiss.edu
     - name: Arunava Roy
     - name: Julio Tafoya
-      website: http://www.phy.olemiss.edu/~julio/
       contact: julio.tafoya at th.u-psud.fr
     - name: Tezeswi Tadepalli
-      website: http://www.engineering.olemiss.edu/~tadepali/
+      website: https://sites.google.com/site/tezeswi/
       contact: tadepali at olemiss.edu
     - name: Zhongyang Zhang
-      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Zhongyang
+      photo: /assets/images/former-members/zhongyang-zhang.gif
+      research:
+        - Black-hole perturbation theory
+        - Gravitational-wave source modeling
+        - Alternative theories of gravity
       contact: zzy2417 at gmail.com
 
 - key: former-visiting-students
@@ -117,15 +169,17 @@
     - name: Fabrizia Canfora
     - name: Domizia Chericoni
     - name: Davide Gerosa
-      website: http://www.damtp.cam.ac.uk/user/dg438/
+      website: https://www.unimib.it/davide-gerosa
       contact: d.gerosa at damtp.cam.ac.uk
     - name: Michele Mancarella
+    - name: Miguel Zilhão
     - name: Alessandro Manzotti
     - name: Johan Noldus
       contact: johan.noldus at gmail.com
     - name: Carlo Enrico Petrillo
     - name: Giovanni Rabuffo
       contact: g.rabuffo at live.it
+    - name: Richard Brito
     - name: Roman Sverdlov
       contact: roman at phy.olemiss.edu
     - name: Laura Torino

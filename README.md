@@ -82,6 +82,27 @@ excerpt: One sentence for the homepage and News page.
 Write the announcement here.
 ```
 
+Items from 2015 onward belong in regular Group news. For an item from before
+2015, add `archive: true` so it appears under “From the archive” and stays off
+the homepage.
+
+## Update group meetings
+
+The weekly schedule and meeting contacts are stored in `_data/meetings.yml`.
+All invited talks—past and upcoming—belong in `_data/seminars.yml`. Add each
+talk once using a `date_iso` value in `YYYY-MM-DD` format. The website sorts
+the file automatically: the newest talks appear on the homepage, News &
+Seminars page, and Meetings page, while `/seminars/` shows the complete list by
+year. Add `featured: true` and an `abstract` when a talk should receive the
+larger feature on the Meetings page.
+
+```yaml
+- date_iso: '2026-09-10'
+  speaker: Jane Doe
+  affiliation: Example University
+  title: A seminar title
+```
+
 ## Edit the research pages
 
 The six detailed research pages live in `_projects/`. Their shorter homepage
@@ -144,6 +165,8 @@ Before publishing, set `url` in `_config.yml` to the public domain. Set
 ## Other useful files
 
 - `_data/navigation.yml`: main navigation
+- `_data/meetings.yml`: weekly meeting schedule and contacts
+- `_data/seminars.yml`: all invited seminars
 - `_data/roles.yml`: People-page sections
 - `_includes/footer.html`: footer and group contact details
 - `about.md`: About page and collaborations

@@ -27,56 +27,11 @@ body_class: home
   <span class="scroll-cue">Scroll to explore</span>
 </section>
 
-<section class="intro-strip" aria-label="Group introduction">
-  <div class="shell intro-strip-grid">
-    <div class="intro-strip-label"><p class="eyebrow">Theory · Simulation · Observation</p></div>
-    <div class="intro-strip-text"><p>We use mathematical theory, numerical simulations, gravitational-wave data, and electromagnetic observations to study gravity and relativistic astrophysics.</p></div>
-  </div>
-</section>
-
-<section class="research-section">
-  <div class="shell">
-    <div class="section-heading">
-      <div><p class="eyebrow">What we investigate</p><h2 class="section-title">Our research.</h2></div>
-      <p>Our work spans fundamental theory, computational relativity, gravitational-wave inference, and observational astrophysics.</p>
-    </div>
-    <div class="topic-grid">
-      {% for topic in site.data.research_topics %}
-        <a class="topic-row" href="{{ '/research/' | append: topic.slug | append: '/' | relative_url }}">
-          <span class="topic-number">{{ topic.number }}</span>
-          <h3>{{ topic.title }}</h3>
-          <p>{{ topic.description }}</p>
-          <span class="topic-arrow" aria-hidden="true">↗</span>
-        </a>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<section class="feature-band">
-  <div class="shell feature-grid">
-    <div class="signal-graphic" aria-hidden="true">
-      <svg viewBox="0 0 500 280">
-        <line x1="0" y1="140" x2="500" y2="140"/>
-        <line x1="96" y1="20" x2="96" y2="260"/>
-        <path d="M0 140 C70 140 70 137 95 137 C120 137 120 145 142 145 C164 145 166 130 187 130 C208 130 211 154 231 154 C251 154 254 118 273 118 C292 118 296 165 314 165 C332 165 335 104 352 104 C369 104 372 178 389 178 C406 178 408 98 426 98 C444 98 453 142 500 142"/>
-        <text x="106" y="32">INSPIRAL</text><text x="397" y="244">RINGDOWN</text>
-      </svg>
-    </div>
-    <div class="feature-copy">
-      <p class="eyebrow">Gravitational-wave astronomy</p>
-      <h2>Studying the universe with gravitational waves.</h2>
-      <p>We model gravitational-wave sources, analyze detector data, and use observations to study compact objects and test general relativity.</p>
-      <a class="button button-light" href="{{ '/research/' | relative_url }}">Explore our research</a>
-    </div>
-  </div>
-</section>
-
 <section class="latest-section">
   <div class="shell">
     <div class="section-heading">
-      <div><p class="eyebrow">From the group</p><h2 class="section-title">Latest from the group.</h2></div>
-      <p>Recent research and news from the Gravity and Astrophysics group.</p>
+      <div><p class="eyebrow">Latest from the group</p><h2 class="section-title">Publications and news.</h2></div>
+      <p>Recent papers, group updates, and seminars from the Gravity and Astrophysics group.</p>
     </div>
     <div class="latest-grid">
       <div>
@@ -94,16 +49,71 @@ body_class: home
         <p><a class="text-link" href="{{ '/publications/' | relative_url }}">All publications <span>↗</span></a></p>
       </div>
       <div>
-        <p class="eyebrow">News</p>
+        <p class="eyebrow">News &amp; seminars</p>
         <div class="home-list">
-          {% for post in site.posts limit: 3 %}
-            <a class="home-list-item" href="{{ post.url | relative_url }}"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%B %d, %Y' }}</time><h3>{{ post.title }}</h3></a>
-          {% else %}
-            <p class="empty-note">No news has been posted yet.</p>
+          {% assign current_posts = site.posts | where_exp: 'post', 'post.archive != true' %}
+          {% for post in current_posts limit: 2 %}
+            <a class="home-list-item" href="{{ post.url | relative_url }}"><time datetime="{{ post.date | date_to_xmlschema }}">News · {{ post.date | date: '%B %d, %Y' }}</time><h3>{{ post.title }}</h3></a>
           {% endfor %}
+          {% assign recent_seminars = site.data.seminars | sort: 'date_iso' | reverse %}
+          {% for seminar in recent_seminars limit: 2 %}
+            <a class="home-list-item" href="{{ '/meetings/#seminar-schedule-heading' | relative_url }}"><time datetime="{{ seminar.date_iso }}">Seminar · {{ seminar.date_iso | date: '%B %-d, %Y' }}</time><h3>{{ seminar.speaker }}: {{ seminar.title }}</h3></a>
+          {% endfor %}
+          {% if current_posts.size == 0 and recent_seminars.size == 0 %}<p class="empty-note">No news or seminars are listed yet.</p>{% endif %}
         </div>
-        <p><a class="text-link" href="{{ '/news/' | relative_url }}">All news <span>↗</span></a></p>
+        <p><a class="text-link" href="{{ '/news/' | relative_url }}">All news &amp; seminars <span>↗</span></a></p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro-strip" aria-label="Group introduction">
+  <div class="shell intro-strip-grid">
+    <div class="intro-strip-label"><p class="eyebrow">Theory · Simulation · Observation</p></div>
+    <div class="intro-strip-text"><p>Our group brings together theorists, numerical relativists, gravitational-wave scientists, and observational astronomers.</p></div>
+  </div>
+</section>
+
+<section class="research-section">
+  <div class="shell">
+    <div class="section-heading">
+      <div><p class="eyebrow">What we investigate</p><h2 class="section-title">Our research.</h2></div>
+    </div>
+    <div class="topic-grid">
+      {% for topic in site.data.research_topics %}
+        <a class="topic-row" href="{{ '/research/' | append: topic.slug | append: '/' | relative_url }}">
+          <span class="topic-number">{{ topic.number }}</span>
+          <h3>{{ topic.title }}</h3>
+          <p>{{ topic.description }}</p>
+          <span class="topic-arrow" aria-hidden="true">↗</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="feature-band">
+  <div class="shell feature-grid">
+    <figure class="signal-graphic">
+      <svg viewBox="0 0 500 280" role="img" aria-labelledby="sxs-waveform-title sxs-waveform-description">
+        <title id="sxs-waveform-title">SXS:BBH:0305 gravitational-wave strain</title>
+        <desc id="sxs-waveform-description">Numerical-relativity strain from a binary black-hole inspiral, merger, and ringdown.</desc>
+        <line x1="10" y1="140" x2="490" y2="140"/>
+        <line class="sxs-merger-line" x1="410" y1="28" x2="410" y2="252"/>
+        <path class="sxs-strain" d="M10.0 144.1 L11.5 149.1 L12.9 154.1 L14.4 158.8 L15.9 163.2 L17.3 167.3 L18.8 170.8 L20.3 173.9 L21.7 176.3 L23.2 178.1 L24.7 179.3 L26.1 179.7 L27.6 179.5 L29.1 178.5 L30.5 176.9 L32.0 174.6 L33.4 171.7 L34.9 168.2 L36.4 164.1 L37.8 159.7 L39.3 154.8 L40.8 149.7 L42.2 144.4 L43.7 139.0 L45.2 133.6 L46.6 128.2 L48.1 123.1 L49.6 118.3 L51.0 113.9 L52.5 109.9 L54.0 106.5 L55.4 103.7 L56.9 101.6 L58.4 100.1 L59.8 99.5 L61.3 99.5 L62.7 100.4 L64.2 102.0 L65.7 104.3 L67.1 107.4 L68.6 111.0 L70.1 115.3 L71.5 120.0 L73.0 125.1 L74.5 130.6 L75.9 136.2 L77.4 141.9 L78.9 147.6 L80.3 153.2 L81.8 158.6 L83.3 163.6 L84.7 168.1 L86.2 172.1 L87.6 175.5 L89.1 178.2 L90.6 180.1 L92.0 181.2 L93.5 181.5 L95.0 181.0 L96.4 179.6 L97.9 177.4 L99.4 174.5 L100.8 170.8 L102.3 166.5 L103.8 161.6 L105.2 156.2 L106.7 150.5 L108.2 144.6 L109.6 138.5 L111.1 132.4 L112.6 126.5 L114.0 120.9 L115.5 115.6 L116.9 110.8 L118.4 106.6 L119.9 103.1 L121.3 100.4 L122.8 98.6 L124.3 97.6 L125.7 97.5 L127.2 98.4 L128.7 100.2 L130.1 102.8 L131.6 106.3 L133.1 110.6 L134.5 115.5 L136.0 121.0 L137.5 126.9 L138.9 133.1 L140.4 139.6 L141.8 146.0 L143.3 152.4 L144.8 158.5 L146.2 164.2 L147.7 169.4 L149.2 173.9 L150.6 177.7 L152.1 180.6 L153.6 182.6 L155.0 183.5 L156.5 183.5 L158.0 182.5 L159.4 180.4 L160.9 177.4 L162.4 173.5 L163.8 168.7 L165.3 163.3 L166.8 157.2 L168.2 150.7 L169.7 143.9 L171.1 137.0 L172.6 130.2 L174.1 123.5 L175.5 117.2 L177.0 111.5 L178.5 106.4 L179.9 102.1 L181.4 98.8 L182.9 96.5 L184.3 95.3 L185.8 95.2 L187.3 96.3 L188.7 98.4 L190.2 101.7 L191.7 106.0 L193.1 111.2 L194.6 117.2 L196.0 123.8 L197.5 130.9 L199.0 138.2 L200.4 145.7 L201.9 153.0 L203.4 160.0 L204.8 166.5 L206.3 172.4 L207.8 177.4 L209.2 181.4 L210.7 184.2 L212.2 185.9 L213.6 186.3 L215.1 185.4 L216.6 183.2 L218.0 179.8 L219.5 175.2 L220.9 169.6 L222.4 163.1 L223.9 155.9 L225.3 148.2 L226.8 140.2 L228.3 132.1 L229.7 124.2 L231.2 116.7 L232.7 109.9 L234.1 103.9 L235.6 99.0 L237.1 95.3 L238.5 93.0 L240.0 92.0 L241.5 92.6 L242.9 94.6 L244.4 98.1 L245.9 102.9 L247.3 109.0 L248.8 116.0 L250.2 123.9 L251.7 132.4 L253.2 141.2 L254.6 150.0 L256.1 158.6 L257.6 166.6 L259.0 173.8 L260.5 179.9 L262.0 184.7 L263.4 188.0 L264.9 189.7 L266.4 189.6 L267.8 187.9 L269.3 184.4 L270.8 179.4 L272.2 172.8 L273.7 165.1 L275.1 156.4 L276.6 147.0 L278.1 137.2 L279.5 127.5 L281.0 118.1 L282.5 109.5 L283.9 101.9 L285.4 95.8 L286.9 91.3 L288.3 88.6 L289.8 87.9 L291.3 89.3 L292.7 92.8 L294.2 98.1 L295.7 105.3 L297.1 113.9 L298.6 123.7 L300.1 134.3 L301.5 145.3 L303.0 156.2 L304.4 166.5 L305.9 175.7 L307.4 183.5 L308.8 189.5 L310.3 193.3 L311.8 194.8 L313.2 193.7 L314.7 190.2 L316.2 184.2 L317.6 176.1 L319.1 166.1 L320.6 154.8 L322.0 142.5 L323.5 130.0 L325.0 117.7 L326.4 106.4 L327.9 96.7 L329.3 89.1 L330.8 84.1 L332.3 82.0 L333.7 83.0 L335.2 87.2 L336.7 94.4 L338.1 104.3 L339.6 116.5 L341.1 130.3 L342.5 144.9 L344.0 159.5 L345.5 173.1 L346.9 185.0 L348.4 194.3 L349.9 200.2 L351.3 202.3 L352.8 200.2 L354.3 193.9 L355.7 183.8 L357.2 170.2 L358.6 154.1 L360.1 136.6 L361.6 118.8 L363.0 102.2 L364.5 88.2 L366.0 78.0 L367.4 72.7 L368.9 73.1 L370.4 79.4 L371.8 91.5 L373.3 108.5 L374.8 129.3 L376.2 151.9 L377.7 174.1 L379.2 193.6 L380.6 207.9 L382.1 215.0 L383.5 213.4 L385.0 202.5 L386.5 182.7 L387.9 156.1 L389.4 125.5 L390.9 95.4 L392.3 70.6 L393.8 56.1 L395.3 55.9 L396.7 72.2 L398.2 104.1 L399.7 146.8 L401.1 191.5 L402.6 226.2 L404.1 238.4 L405.5 219.3 L407.0 169.5 L408.4 103.2 L409.9 48.7 L411.4 37.6 L412.8 84.5 L414.3 166.5 L415.8 227.7 L417.2 218.9 L418.7 148.3 L420.2 81.7 L421.6 78.8 L423.1 131.5 L424.6 178.7 L426.0 177.3 L427.5 141.9 L429.0 115.3 L430.4 119.2 L431.9 141.0 L433.4 155.7 L434.8 151.7 L436.3 137.7 L437.7 129.6 L439.2 133.8 L440.7 142.9 L442.1 146.6 L443.6 142.8 L445.1 137.4 L446.5 136.1 L448.0 139.0 L449.5 141.9 L450.9 142.2 L452.4 140.3 L453.9 138.7 L455.3 138.7 L456.8 140.0 L458.3 140.9 L459.7 140.7 L461.2 139.9 L462.6 139.4 L464.1 139.7 L465.6 140.2 L467.0 140.4 L468.5 140.1 L470.0 139.9 L471.4 139.8 L472.9 139.9 L474.4 140.1 L475.8 140.1 L477.3 140.0 L478.8 139.9 L480.2 139.9 L481.7 140.0 L483.2 140.0 L484.6 140.0 L486.1 140.0 L487.6 140.0 L489.0 140.0 L490.0 140.0"/>
+        <circle class="sxs-peak" cx="411" cy="38" r="3"/>
+        <text x="10" y="20">SXS:BBH:0305 · STRAIN h(t)</text>
+        <text x="10" y="268">−0.20 s</text>
+        <text x="418" y="20">MERGER</text>
+        <text x="446" y="268">+0.04 s</text>
+      </svg>
+      <figcaption><a href="https://doi.org/10.26138/SXS:BBH:0305v3.0">SXS:BBH:0305</a> · Numerical-relativity strain · SXS Collaboration</figcaption>
+    </figure>
+    <div class="feature-copy">
+      <p class="eyebrow">Gravitational-wave astronomy</p>
+      <h2>Studying the universe with gravitational waves.</h2>
+      <p>We model gravitational-wave sources, analyze detector data, and use observations to study compact objects and test general relativity.</p>
+      <a class="button button-light" href="{{ '/research/' | relative_url }}">Explore our research</a>
     </div>
   </div>
 </section>

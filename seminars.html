@@ -1,0 +1,52 @@
+---
+layout: default
+title: Seminar archive
+description: Previous invited seminars hosted by the Ole Miss Gravity and Astrophysics group.
+permalink: /seminars/
+---
+{% assign all_seminars = site.data.seminars | sort: 'date_iso' | reverse %}
+{% assign seminars_by_year = all_seminars | group_by_exp: 'seminar', "seminar.date_iso | date: '%Y'" %}
+
+<header class="page-hero">
+  <div class="shell page-hero-inner">
+    <p class="eyebrow">Previous speakers</p>
+    <h1>Seminar archive.</h1>
+    <p class="page-intro">Invited talks hosted by the Gravity and Astrophysics group since 2020.</p>
+  </div>
+</header>
+
+<div class="shell seminar-archive-page">
+  <div class="archive-intro">
+    <div>
+      <p class="eyebrow">{{ all_seminars.size }} seminars</p>
+      <h2>Talks across gravity, astrophysics, and field theory.</h2>
+    </div>
+    <div>
+      <p>This archive records previous group seminars and their announced titles. For the current schedule, see <a href="{{ '/meetings/' | relative_url }}">group meetings</a>.</p>
+      <nav class="year-jump" aria-label="Seminar archive by year">
+        {% for year in seminars_by_year %}<a href="#seminars-{{ year.name }}">{{ year.name }}</a>{% endfor %}
+      </nav>
+    </div>
+  </div>
+
+  {% for year in seminars_by_year %}
+    <section class="seminar-year" id="seminars-{{ year.name }}" aria-labelledby="seminars-{{ year.name }}-heading">
+      <div class="seminar-year-heading">
+        <h2 id="seminars-{{ year.name }}-heading">{{ year.name }}</h2>
+        <span>{{ year.items.size | prepend: '0' | slice: -2, 2 }}</span>
+      </div>
+      <div class="schedule-table-wrap">
+        <table class="schedule-table seminar-table archive-table">
+          <thead><tr><th scope="col">Date</th><th scope="col">Speaker</th><th scope="col">Affiliation</th><th scope="col">Talk</th></tr></thead>
+          <tbody>
+            {% for seminar in year.items %}
+              <tr><td>{{ seminar.date_iso | date: '%B %-d' }}</td><td>{{ seminar.speaker }}</td><td>{{ seminar.affiliation }}</td><td>{{ seminar.title }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  {% endfor %}
+
+  <p class="archive-back"><a class="text-link" href="{{ '/meetings/' | relative_url }}"><span>←</span> Group meetings</a></p>
+</div>

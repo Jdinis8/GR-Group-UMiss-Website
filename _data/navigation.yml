@@ -4,10 +4,11 @@
   url: /people/
 - label: Publications
   url: /publications/
-- label: News
+- label: News & Seminars
   url: /news/
+- label: Meetings
+  url: /meetings/
 - label: Join us
   url: /join/
 - label: About
   url: /about/
-
