@@ -1,0 +1,40 @@
+---
+layout: default
+title: People
+description: Meet the faculty, postdoctoral researchers, and students of the University of Mississippi Gravity and Astrophysics group.
+permalink: /people/
+---
+<header class="page-hero">
+  <div class="shell page-hero-inner">
+    <p class="eyebrow">Our community</p>
+    <h1>People shaping our questions.</h1>
+    <p class="page-intro">The group brings together faculty, postdoctoral researchers, and students working across gravitational physics and astrophysics.</p>
+  </div>
+</header>
+<div class="shell people-page" data-people-directory>
+  {% assign active_people = site.people | where_exp: 'person', 'person.alumni != true' %}
+  {% if active_people.size > 0 %}
+    <div class="filter-bar" role="group" aria-label="Filter people by role">
+      <button class="filter-button is-active" type="button" data-role-filter="all">Everyone</button>
+      {% for role in site.data.roles %}
+        {% assign role_count = active_people | where: 'role', role.key | size %}
+        {% if role_count > 0 %}<button class="filter-button" type="button" data-role-filter="{{ role.key }}">{{ role.label }}</button>{% endif %}
+      {% endfor %}
+    </div>
+    {% for role in site.data.roles %}
+      {% assign role_people = active_people | where: 'role', role.key | sort: 'order' %}
+      {% if role_people.size > 0 %}
+        <section class="role-section" data-role-section="{{ role.key }}">
+          <div class="role-section-head"><h2>{{ role.label }}</h2><span>{{ role_people.size | prepend: '0' | slice: -2, 2 }}</span></div>
+          <div class="people-grid">{% for person in role_people %}{% include person-card.html person=person %}{% endfor %}</div>
+        </section>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <div class="prose">
+      <h2>The directory is ready for your group.</h2>
+      <p>No production profiles have been added yet. Copy <code>_people/_profile-template.md</code>, replace the example fields, and add a portrait under <code>assets/images/people/</code>. The person will automatically appear here under the correct role.</p>
+    </div>
+  {% endif %}
+</div>
+

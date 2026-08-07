@@ -1,0 +1,33 @@
+---
+layout: default
+title: Publications
+description: Publications from the University of Mississippi Gravity and Astrophysics group.
+permalink: /publications/
+---
+<header class="page-hero">
+  <div class="shell page-hero-inner">
+    <p class="eyebrow">Research record</p>
+    <h1>Ideas, tested and shared.</h1>
+    <p class="page-intro">Papers authored by members of the group, refreshed automatically from researcher identifiers.</p>
+  </div>
+</header>
+<div class="shell page-body" data-publications>
+  {% assign papers = site.publications | sort: 'date' | reverse %}
+  {% if papers.size > 0 %}
+    <div class="publication-controls">
+      <label class="sr-only" for="publication-search">Search publications</label>
+      <input class="publication-search" id="publication-search" type="search" placeholder="Search title, author, venue, or year…" data-publication-search>
+      <span class="publication-count" data-publication-count>{{ papers.size }} papers</span>
+    </div>
+    <div class="publication-list">
+      {% for paper in papers %}{% include publication.html publication=paper %}{% endfor %}
+    </div>
+    <p class="publication-empty" data-publication-empty hidden>No publications match that search.</p>
+  {% else %}
+    <div class="prose">
+      <h2>The publication feed is ready.</h2>
+      <p>Add ORCID identifiers to member profiles and run <code>python3 scripts/fetch_publications.py</code>. The generated papers will appear here, newest first.</p>
+    </div>
+  {% endif %}
+</div>
+

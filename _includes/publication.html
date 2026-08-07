@@ -1,0 +1,20 @@
+{% assign publication = include.publication %}
+<article class="publication" data-year="{{ publication.year }}">
+  <div class="publication-year" aria-hidden="true">{{ publication.year }}</div>
+  <div>
+    <h3>
+      {% if publication.doi %}<a href="https://doi.org/{{ publication.doi }}">{{ publication.title }}</a>
+      {% elsif publication.url %}<a href="{{ publication.url }}">{{ publication.title }}</a>
+      {% else %}{{ publication.title }}{% endif %}
+    </h3>
+    <p class="authors">{% if publication.authors_display %}{{ publication.authors_display }}{% else %}{{ publication.authors | join: ', ' }}{% endif %}</p>
+    <p class="venue">{% if publication.venue %}<em>{{ publication.venue }}</em>{% endif %}{% if publication.volume %}, {{ publication.volume }}{% endif %}{% if publication.year %} ({{ publication.year }}){% endif %}</p>
+    <div class="publication-links">
+      {% if publication.doi %}<a href="https://doi.org/{{ publication.doi }}">DOI</a>{% endif %}
+      {% if publication.arxiv %}<a href="https://arxiv.org/abs/{{ publication.arxiv }}">arXiv</a>{% endif %}
+      {% if publication.openalex %}<a href="{{ publication.openalex }}">OpenAlex</a>{% endif %}
+      {% if publication.pdf %}<a href="{{ publication.pdf | relative_url }}">PDF</a>{% endif %}
+    </div>
+  </div>
+</article>
+

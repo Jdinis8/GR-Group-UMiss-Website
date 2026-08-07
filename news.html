@@ -1,0 +1,15 @@
+---
+layout: default
+title: News
+description: News, seminars, and announcements from the Ole Miss Gravity and Astrophysics group.
+permalink: /news/
+---
+<header class="page-hero"><div class="shell page-hero-inner"><p class="eyebrow">News &amp; events</p><h1>What’s happening now.</h1><p class="page-intro">Group announcements, new results, visitors, seminars, and opportunities.</p></div></header>
+<div class="shell page-body">
+  {% if site.posts.size > 0 %}
+    <div class="news-grid">{% for post in site.posts %}<a class="news-card" href="{{ post.url | relative_url }}"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%B %d, %Y' }}</time><h2>{{ post.title }}</h2>{% if post.excerpt %}<p>{{ post.excerpt | strip_html | truncate: 145 }}</p>{% endif %}</a>{% endfor %}</div>
+  {% else %}
+    <div class="prose"><h2>News is on the horizon.</h2><p>Add a dated Markdown file to <code>_posts</code> and it will appear here automatically.</p></div>
+  {% endif %}
+</div>
+

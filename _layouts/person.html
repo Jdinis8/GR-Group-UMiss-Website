@@ -1,0 +1,32 @@
+---
+layout: default
+---
+<article class="person-profile">
+  <div class="shell profile-grid">
+    <div class="profile-image-wrap">
+      {% if page.photo %}
+        <img class="profile-image" src="{{ page.photo | relative_url }}" alt="Portrait of {{ page.name }}" width="720" height="880">
+      {% else %}
+        <div class="profile-image photo-placeholder"><span>{{ page.name | slice: 0 }}</span></div>
+      {% endif %}
+    </div>
+    <div class="profile-main">
+      <a class="back-link" href="{{ '/people/' | relative_url }}">← All people</a>
+      <p class="eyebrow">{{ page.role_label }}</p>
+      <h1>{{ page.name }}</h1>
+      {% if page.tagline %}<p class="profile-tagline">{{ page.tagline }}</p>{% endif %}
+      <div class="profile-links">
+        {% if page.email %}<a href="mailto:{{ page.email }}">Email</a>{% endif %}
+        {% if page.website %}<a href="{{ page.website }}">Website</a>{% endif %}
+        {% if page.orcid %}<a href="https://orcid.org/{{ page.orcid }}">ORCID</a>{% endif %}
+        {% if page.inspire %}<a href="{{ page.inspire }}">INSPIRE</a>{% endif %}
+        {% if page.cv %}<a href="{{ page.cv | relative_url }}">CV</a>{% endif %}
+      </div>
+      {% if page.research %}
+        <div class="profile-research"><p class="eyebrow">Research interests</p><ul>{% for item in page.research %}<li>{{ item }}</li>{% endfor %}</ul></div>
+      {% endif %}
+      <div class="prose">{{ content }}</div>
+    </div>
+  </div>
+</article>
+

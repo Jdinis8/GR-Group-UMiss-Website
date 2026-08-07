@@ -1,0 +1,55 @@
+title: Gravity & Astrophysics at Ole Miss
+short_title: UM Gravity
+description: >-
+  We study gravity in its most dynamical regimes, from compact objects and
+  gravitational waves to the fundamental structure of spacetime.
+url: ""
+baseurl: ""
+lang: en
+timezone: America/Chicago
+
+markdown: kramdown
+permalink: pretty
+
+collections:
+  people:
+    output: true
+    permalink: /people/:name/
+  projects:
+    output: true
+    permalink: /research/:name/
+  publications:
+    output: false
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+  - scope:
+      path: ""
+      type: people
+    values:
+      layout: person
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - scripts
+  - vendor
+  - .venv
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap

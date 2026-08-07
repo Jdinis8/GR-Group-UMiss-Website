@@ -1,0 +1,17 @@
+- number: "01"
+  title: Gravitational waves
+  description: Reading the universe through signals from merging black holes, neutron stars, and other compact systems.
+  slug: gravitational-waves
+- number: "02"
+  title: Strong-field gravity
+  description: Testing relativity where spacetime is most curved and exploring signatures of physics beyond Einstein.
+  slug: strong-field-gravity
+- number: "03"
+  title: Compact objects
+  description: Connecting black-hole and neutron-star dynamics to observable astrophysical phenomena.
+  slug: compact-objects
+- number: "04"
+  title: Spacetime foundations
+  description: Investigating quantum gravity, causal structure, and the geometry underlying gravitational physics.
+  slug: spacetime-foundations
+

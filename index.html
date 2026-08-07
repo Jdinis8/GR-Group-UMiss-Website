@@ -1,0 +1,110 @@
+---
+title: Gravity & Astrophysics at Ole Miss
+description: Exploring gravity, compact objects, gravitational waves, and the structure of spacetime at the University of Mississippi.
+body_class: home
+---
+<section class="home-hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-orbit" aria-hidden="true" data-orbit>
+    <svg viewBox="0 0 800 800" role="presentation">
+      <ellipse class="orbit-line" cx="400" cy="400" rx="320" ry="122" transform="rotate(-18 400 400)"/>
+      <ellipse class="orbit-line bright" cx="400" cy="400" rx="260" ry="96" transform="rotate(31 400 400)"/>
+      <ellipse class="orbit-line red" cx="400" cy="400" rx="190" ry="64" transform="rotate(-48 400 400)"/>
+      <circle class="orbit-line" cx="400" cy="400" r="260"/>
+      <path class="wave-line" d="M32 441 C118 441 145 441 202 440 C239 439 249 424 265 424 C280 424 284 462 299 462 C314 462 318 400 332 400 C347 400 349 480 363 480 C377 480 379 383 392 383 C405 383 407 494 420 494 C433 494 435 373 447 373 C460 373 463 487 477 487 C491 487 498 400 519 400 C551 400 547 435 580 435 C615 435 639 435 768 435"/>
+      <circle class="orbit-node" cx="566" cy="289" r="5"/>
+      <circle fill="#fff" cx="400" cy="400" r="4"/>
+    </svg>
+  </div>
+  <div class="shell hero-content">
+    <div class="hero-kicker">Gravity &amp; Astrophysics · Ole Miss</div>
+    <h1 class="hero-title">Reading the shape <em>of spacetime.</em></h1>
+    <div class="hero-bottom">
+      <div class="hero-index">Oxford, Mississippi<br>34.3665° N · 89.5192° W</div>
+      <p class="hero-intro">We study gravity in its most dynamical regimes—from compact binaries and gravitational-wave observations to the fundamental structure of spacetime.</p>
+    </div>
+  </div>
+  <span class="scroll-cue">Scroll to explore</span>
+</section>
+
+<section class="intro-strip" aria-label="Group introduction">
+  <div class="shell intro-strip-grid">
+    <div class="intro-strip-label"><p class="eyebrow">One group · Many scales</p></div>
+    <div class="intro-strip-text"><p>We connect mathematical insight, numerical experiments, and observations to ask how gravity works—and what it can reveal about our universe.</p></div>
+  </div>
+</section>
+
+<section class="research-section">
+  <div class="shell">
+    <div class="section-heading">
+      <div><p class="eyebrow">What we investigate</p><h2 class="section-title">Research without boundaries.</h2></div>
+      <p>Our work spans theory, computation, and observation, united by the physics of gravity.</p>
+    </div>
+    <div class="topic-grid">
+      {% for topic in site.data.research_topics %}
+        <a class="topic-row" href="{{ '/research/' | append: topic.slug | append: '/' | relative_url }}">
+          <span class="topic-number">{{ topic.number }}</span>
+          <h3>{{ topic.title }}</h3>
+          <p>{{ topic.description }}</p>
+          <span class="topic-arrow" aria-hidden="true">↗</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="feature-band">
+  <div class="shell feature-grid">
+    <div class="signal-graphic" aria-hidden="true">
+      <svg viewBox="0 0 500 280">
+        <line x1="0" y1="140" x2="500" y2="140"/>
+        <line x1="96" y1="20" x2="96" y2="260"/>
+        <path d="M0 140 C70 140 70 137 95 137 C120 137 120 145 142 145 C164 145 166 130 187 130 C208 130 211 154 231 154 C251 154 254 118 273 118 C292 118 296 165 314 165 C332 165 335 104 352 104 C369 104 372 178 389 178 C406 178 408 98 426 98 C444 98 453 142 500 142"/>
+        <text x="106" y="32">INSPIRAL</text><text x="397" y="244">RINGDOWN</text>
+      </svg>
+    </div>
+    <div class="feature-copy">
+      <p class="eyebrow">A new way to observe</p>
+      <h2>Listening to the universe.</h2>
+      <p>Gravitational waves carry pristine information from the strongest gravitational fields in nature. We model their sources, analyze their signals, and use them to test our understanding of the cosmos.</p>
+      <a class="button button-light" href="{{ '/research/' | relative_url }}">Explore our research</a>
+    </div>
+  </div>
+</section>
+
+<section class="latest-section">
+  <div class="shell">
+    <div class="section-heading">
+      <div><p class="eyebrow">From the group</p><h2 class="section-title">Latest signals.</h2></div>
+      <p>Recent research and news from the Gravity and Astrophysics group.</p>
+    </div>
+    <div class="latest-grid">
+      <div>
+        <p class="eyebrow">Publications</p>
+        <div class="home-list">
+          {% assign recent_papers = site.publications | sort: 'date' | reverse %}
+          {% for paper in recent_papers limit: 3 %}
+            <a class="home-list-item" href="{% if paper.doi %}https://doi.org/{{ paper.doi }}{% else %}{{ paper.url }}{% endif %}">
+              <span class="meta">{{ paper.year }}{% if paper.venue %} · {{ paper.venue }}{% endif %}</span><h3>{{ paper.title }}</h3>
+            </a>
+          {% else %}
+            <p class="empty-note">Publications appear here after the importer is run with member ORCIDs.</p>
+          {% endfor %}
+        </div>
+        <p><a class="text-link" href="{{ '/publications/' | relative_url }}">All publications <span>↗</span></a></p>
+      </div>
+      <div>
+        <p class="eyebrow">News</p>
+        <div class="home-list">
+          {% for post in site.posts limit: 3 %}
+            <a class="home-list-item" href="{{ post.url | relative_url }}"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%B %d, %Y' }}</time><h3>{{ post.title }}</h3></a>
+          {% else %}
+            <p class="empty-note">News, seminars, and group announcements will appear here.</p>
+          {% endfor %}
+        </div>
+        <p><a class="text-link" href="{{ '/news/' | relative_url }}">All news <span>↗</span></a></p>
+      </div>
+    </div>
+  </div>
+</section>
+

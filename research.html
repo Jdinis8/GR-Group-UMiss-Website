@@ -1,0 +1,21 @@
+---
+layout: default
+title: Research
+description: Research in gravitational waves, compact objects, strong-field gravity, and spacetime foundations at Ole Miss.
+permalink: /research/
+---
+<header class="page-hero">
+  <div class="shell page-hero-inner">
+    <p class="eyebrow">Questions across scales</p>
+    <h1>Where gravity leads us.</h1>
+    <p class="page-intro">We use analytical theory, high-performance computation, and observational data to explore gravity from fundamental principles to astrophysical phenomena.</p>
+  </div>
+</header>
+<div class="shell research-index">
+  <div class="research-cards">
+    {% for topic in site.data.research_topics %}
+      <a class="research-card" href="{{ '/research/' | append: topic.slug | append: '/' | relative_url }}"><span class="topic-number">{{ topic.number }}</span><h2>{{ topic.title }}</h2><p>{{ topic.description }}</p></a>
+    {% endfor %}
+  </div>
+</div>
+

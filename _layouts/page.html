@@ -1,0 +1,12 @@
+---
+layout: default
+---
+<header class="page-hero">
+  <div class="shell page-hero-inner">
+    <p class="eyebrow">{{ page.eyebrow | default: site.short_title }}</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.intro %}<p class="page-intro">{{ page.intro }}</p>{% endif %}
+  </div>
+</header>
+<div class="shell prose page-body">{{ content }}</div>
+

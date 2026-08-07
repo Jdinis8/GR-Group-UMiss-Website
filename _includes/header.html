@@ -1,0 +1,17 @@
+<header class="site-header" data-header>
+  <div class="shell header-inner">
+    <a class="wordmark" href="{{ '/' | relative_url }}" aria-label="{{ site.short_title }} home">
+      <span class="wordmark-mark" aria-hidden="true"><i></i><i></i></span>
+      <span><strong>Gravity + Astrophysics</strong><small>University of Mississippi</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" data-menu-toggle>
+      <span class="sr-only">Toggle navigation</span><i></i><i></i>
+    </button>
+    <nav class="site-nav" id="site-navigation" aria-label="Primary navigation" data-menu>
+      {% for item in site.data.navigation %}
+        <a href="{{ item.url | relative_url }}" {% if page.url == item.url %}aria-current="page"{% endif %}>{{ item.label }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</header>
+

@@ -1,0 +1,14 @@
+---
+layout: default
+---
+<article>
+  <header class="page-hero project-hero">
+    <div class="shell page-hero-inner">
+      <p class="eyebrow">Research area · {{ page.number }}</p>
+      <h1>{{ page.title }}</h1>
+      {% if page.intro %}<p class="page-intro">{{ page.intro }}</p>{% endif %}
+    </div>
+  </header>
+  <div class="shell prose page-body">{{ content }}</div>
+</article>
+

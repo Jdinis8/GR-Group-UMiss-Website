@@ -1,0 +1,19 @@
+- key: full-professor
+  label: Full professors
+- key: associate-professor
+  label: Associate professors
+- key: assistant-professor
+  label: Assistant professors
+- key: postdoc
+  label: Postdoctoral researchers
+- key: phd-student
+  label: PhD students
+- key: masters-student
+  label: Master’s students
+- key: undergraduate
+  label: Undergraduate researchers
+- key: staff
+  label: Research staff
+- key: affiliate
+  label: Affiliates
+
