@@ -18,8 +18,9 @@ layout: default
       <div class="profile-links">
         {% if page.email %}<a href="mailto:{{ page.email }}">Email</a>{% endif %}
         {% if page.website %}<a href="{{ page.website }}">Website</a>{% endif %}
+        {% if page.scholar %}<a href="{{ page.scholar | escape }}">Google Scholar</a>{% endif %}
         {% if page.orcid %}<a href="https://orcid.org/{{ page.orcid }}">ORCID</a>{% endif %}
-        {% if page.inspire %}<a href="{{ page.inspire }}">INSPIRE</a>{% endif %}
+        {% if page.inspire %}<a href="{{ page.inspire | escape }}">INSPIRE</a>{% endif %}
         {% if page.cv %}<a href="{{ page.cv | relative_url }}">CV</a>{% endif %}
       </div>
       {% if page.research %}
@@ -29,4 +30,3 @@ layout: default
     </div>
   </div>
 </article>
-

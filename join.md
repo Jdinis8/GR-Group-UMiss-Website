@@ -1,23 +1,22 @@
 ---
 layout: page
-title: Work with us.
+title: Join the group.
 eyebrow: Join the group
-intro: We welcome students, postdoctoral researchers, visitors, and collaborators who want to ask ambitious questions about gravity and the universe.
+intro: We welcome inquiries from students, postdoctoral researchers, visitors, and potential collaborators.
 permalink: /join/
 ---
 ## Prospective graduate students
 
-Graduate students typically enter through the University of Mississippi Department of Physics and Astronomy. Tell us what problems interest you, the preparation you bring, and which group members’ work connects with your goals.
+Graduate students join through the University of Mississippi Department of Physics and Astronomy. If you are interested in our work, contact the relevant faculty member and briefly describe your research interests and preparation.
 
 [Graduate admissions](https://physics.olemiss.edu/graduate/) · [Meet the group]({{ '/people/' | relative_url }})
 
 ## Undergraduate research
 
-Undergraduates can contribute through reading projects, data analysis, analytical calculations, and numerical work. You do not need to arrive knowing general relativity; curiosity, persistence, and a solid foundation in physics and mathematics are the best starting points.
+Undergraduates can take part in reading projects, data analysis, analytical calculations, and numerical work. Previous coursework in general relativity is not required.
 
 ## Postdoctoral opportunities
 
-Open positions are announced on the [news page]({{ '/news/' | relative_url }}) and through the usual professional channels. Researchers with independent funding or an interest in visiting the group are encouraged to contact a relevant faculty member.
+Open positions are announced on the [news page]({{ '/news/' | relative_url }}) and through the usual professional channels. Researchers with independent funding, and those interested in visiting the group, are welcome to contact a relevant faculty member.
 
-> We value a collaborative environment in which different backgrounds, perspectives, and routes into physics strengthen the questions we ask.
-
+> We welcome people with different backgrounds and paths into physics, and we value a supportive, collaborative working environment.

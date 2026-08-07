@@ -1,11 +1,14 @@
 ---
-title: Spacetime foundations
-number: "04"
-intro: Exploring geometry, causal structure, and the possibility that spacetime has a deeper microscopic description.
+title: Quantum spacetime & geometry
+number: "05"
+intro: We study causal structure, curved-spacetime physics, and possible microscopic descriptions of geometry.
 ---
-General relativity describes gravity as geometry. Understanding how that description connects to quantum physics remains one of the central problems in fundamental science.
+General relativity treats gravity as geometry, but its relation to quantum physics remains unresolved.
 
-## Structure beneath geometry
+## Quantum gravity and causal sets
 
-We investigate mathematical and conceptual questions about causal structure, quantum gravity, and the emergence of continuum spacetime from more fundamental ingredients.
-
+We investigate causal-set approaches to quantum gravity, Lorentzian and
+Riemannian geometry, and the emergence of continuum spacetime from more
+fundamental ingredients. Related work examines chaos, wave propagation, and
+particle motion in curved geometries, connecting foundational questions to
+classical gravitational phenomena.

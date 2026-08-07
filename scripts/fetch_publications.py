@@ -10,13 +10,16 @@ overwritten.
 from __future__ import annotations
 
 import argparse
+import copy
 import datetime as dt
 import hashlib
+import html
 import json
 import os
 import re
 import sys
 import time
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -25,6 +28,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 API_ROOT = "https://api.openalex.org"
+ORCID_API_ROOT = "https://pub.orcid.org/v3.0"
 ALLOWED_TYPES = {"article", "preprint", "book-chapter", "review"}
 ORCID_PATTERN = re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$")
 
@@ -33,7 +37,16 @@ ORCID_PATTERN = re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$")
 class Member:
     name: str
     orcid: str
+    openalex_id: str
+    publication_filter: str
     source: Path
+
+
+@dataclass(frozen=True)
+class WorkAllowlist:
+    dois: frozenset[str]
+    arxiv_ids: frozenset[str]
+    titles: frozenset[str]
 
 
 class OpenAlexClient:
@@ -41,17 +54,8 @@ class OpenAlexClient:
         self.email = email
         self.pause = pause
 
-    def get(self, path: str, params: dict[str, str] | None = None) -> dict[str, Any]:
-        query = dict(params or {})
-        if self.email:
-            query["mailto"] = self.email
-        url = f"{API_ROOT}/{path.lstrip('/')}"
-        if query:
-            url += "?" + urllib.parse.urlencode(query)
-        request = urllib.request.Request(
-            url,
-            headers={"Accept": "application/json", "User-Agent": "um-gravity-publications/1.0"},
-        )
+    def _request_json(self, url: str, headers: dict[str, str]) -> dict[str, Any]:
+        request = urllib.request.Request(url, headers=headers)
         last_error: Exception | None = None
         for attempt in range(4):
             try:
@@ -63,10 +67,32 @@ class OpenAlexClient:
                 last_error = error
                 if attempt < 3:
                     time.sleep(2**attempt)
-        raise RuntimeError(f"OpenAlex request failed for {url}: {last_error}")
+        raise RuntimeError(f"request failed for {url}: {last_error}")
+
+    def get(self, path: str, params: dict[str, str] | None = None) -> dict[str, Any]:
+        query = dict(params or {})
+        if self.email:
+            query["mailto"] = self.email
+        url = f"{API_ROOT}/{path.lstrip('/')}"
+        if query:
+            url += "?" + urllib.parse.urlencode(query)
+        return self._request_json(
+            url,
+            {"Accept": "application/json", "User-Agent": "um-gravity-publications/1.0"},
+        )
+
+    def orcid_works(self, orcid: str) -> dict[str, Any]:
+        url = f"{ORCID_API_ROOT}/{urllib.parse.quote(orcid)}/works"
+        return self._request_json(
+            url,
+            {"Accept": "application/json", "User-Agent": "um-gravity-publications/1.0"},
+        )
 
     def resolve_author(self, orcid: str) -> dict[str, Any]:
         return self.get(f"authors/https://orcid.org/{orcid}")
+
+    def author(self, openalex_id: str) -> dict[str, Any]:
+        return self.get(f"authors/{openalex_id}")
 
     def works(self, author_id: str, since: str) -> Iterable[dict[str, Any]]:
         cursor = "*"
@@ -116,20 +142,52 @@ def find_members(directory: Path) -> list[Member]:
         if str(data.get("published", "true")).lower() == "false":
             continue
         orcid = str(data.get("orcid", "")).removeprefix("https://orcid.org/").strip()
-        if not orcid:
+        openalex_id = str(data.get("openalex_id", "")).removeprefix("https://openalex.org/").strip().upper()
+        if not orcid and not openalex_id:
             continue
-        if not ORCID_PATTERN.fullmatch(orcid):
+        if orcid and not ORCID_PATTERN.fullmatch(orcid):
             print(f"warning: invalid ORCID {orcid!r} in {path}", file=sys.stderr)
             continue
-        members.append(Member(str(data.get("name", path.stem)), orcid, path))
+        if openalex_id and not re.fullmatch(r"A\d+", openalex_id):
+            print(f"warning: invalid OpenAlex author ID {openalex_id!r} in {path}", file=sys.stderr)
+            continue
+        publication_filter = str(data.get("publication_filter", "")).strip().casefold()
+        if publication_filter not in {"", "orcid"}:
+            print(f"warning: invalid publication_filter {publication_filter!r} in {path}", file=sys.stderr)
+            continue
+        if publication_filter == "orcid" and not orcid:
+            print(f"warning: publication_filter 'orcid' requires an ORCID in {path}", file=sys.stderr)
+            continue
+        members.append(
+            Member(
+                str(data.get("name", path.stem)),
+                orcid,
+                openalex_id,
+                publication_filter,
+                path,
+            )
+        )
     return members
 
 
 def clean_doi(value: str | None) -> str:
-    return (value or "").removeprefix("https://doi.org/").removeprefix("http://doi.org/")
+    return re.sub(r"^https?://(?:dx\.)?doi\.org/", "", value or "", flags=re.IGNORECASE)
+
+
+def clean_arxiv_identifier(value: str | None) -> str:
+    identifier = str(value or "").strip()
+    identifier = re.sub(
+        r"^https?://(?:www\.)?arxiv\.org/(?:abs|pdf)/", "", identifier, flags=re.IGNORECASE
+    )
+    identifier = re.sub(r"^arxiv:\s*", "", identifier, flags=re.IGNORECASE)
+    identifier = re.sub(r"\.pdf$", "", identifier, flags=re.IGNORECASE)
+    return re.sub(r"v\d+$", "", identifier, flags=re.IGNORECASE).casefold()
 
 
 def arxiv_id(work: dict[str, Any]) -> str:
+    doi = clean_doi(work.get("doi"))
+    if doi.lower().startswith("10.48550/arxiv."):
+        return re.sub(r"^10\.48550/arxiv\.", "", doi, flags=re.IGNORECASE)
     arxiv = str(work.get("ids", {}).get("arxiv", ""))
     if arxiv:
         return arxiv.removeprefix("https://arxiv.org/abs/")
@@ -138,6 +196,49 @@ def arxiv_id(work: dict[str, Any]) -> str:
         if "arxiv.org/abs/" in landing:
             return landing.split("arxiv.org/abs/", 1)[1]
     return ""
+
+
+def normalize_title_value(value: Any) -> str:
+    title = re.sub(r"<[^>]+>", "", html.unescape(str(value or "")))
+    title = unicodedata.normalize("NFKD", title).casefold()
+    return "".join(character for character in title if character.isalnum())
+
+
+def orcid_work_allowlist(payload: dict[str, Any]) -> WorkAllowlist:
+    """Build stable identifiers from the works curated on an ORCID record."""
+    dois: set[str] = set()
+    arxiv_ids: set[str] = set()
+    titles: set[str] = set()
+    for group in payload.get("group") or []:
+        external_ids = (group.get("external-ids") or {}).get("external-id") or []
+        for external_id in external_ids:
+            kind = str(external_id.get("external-id-type") or "").casefold()
+            normalized = external_id.get("external-id-normalized") or {}
+            value = str(normalized.get("value") or external_id.get("external-id-value") or "")
+            if kind == "doi":
+                doi = clean_doi(value).casefold()
+                if doi:
+                    dois.add(doi)
+            elif kind == "arxiv":
+                identifier = clean_arxiv_identifier(value)
+                if identifier:
+                    arxiv_ids.add(identifier)
+        for summary in group.get("work-summary") or []:
+            title = normalize_title_value(((summary.get("title") or {}).get("title") or {}).get("value"))
+            if title:
+                titles.add(title)
+    return WorkAllowlist(frozenset(dois), frozenset(arxiv_ids), frozenset(titles))
+
+
+def work_is_allowlisted(work: dict[str, Any], allowlist: WorkAllowlist) -> bool:
+    doi = clean_doi(work.get("doi")).casefold()
+    arxiv = clean_arxiv_identifier(arxiv_id(work))
+    title = normalized_title(work)
+    return bool(
+        (doi and doi in allowlist.dois)
+        or (arxiv and arxiv in allowlist.arxiv_ids)
+        or (title and title in allowlist.titles)
+    )
 
 
 def venue_name(work: dict[str, Any]) -> str:
@@ -181,6 +282,156 @@ def work_key(work: dict[str, Any]) -> str:
     if title:
         return f"title:{year}:{slugify(title, 120)}"
     return str(work.get("id", "")).lower()
+
+
+def normalized_title(work: dict[str, Any]) -> str:
+    """Return a case- and punctuation-insensitive title identity."""
+    return normalize_title_value(work.get("display_name") or work.get("title") or "")
+
+
+def is_arxiv_doi(doi: str | None) -> bool:
+    return clean_doi(doi).lower().startswith("10.48550/arxiv.")
+
+
+def is_preprint_like(work: dict[str, Any]) -> bool:
+    """Identify preprint/repository records even when OpenAlex calls them articles."""
+    doi = clean_doi(work.get("doi"))
+    if doi and not is_arxiv_doi(doi):
+        return False
+    if work.get("type") == "preprint" or is_arxiv_doi(doi):
+        return True
+    venue = venue_name(work).casefold()
+    return "arxiv" in venue
+
+
+def publication_rank(work: dict[str, Any]) -> tuple[int, int, int, int, str]:
+    """Rank records so a journal version wins over its preprint."""
+    doi = clean_doi(work.get("doi"))
+    published = not is_preprint_like(work) and (
+        bool(doi) or work.get("type") in {"article", "review", "book-chapter"}
+    )
+    journal_doi = bool(doi) and not is_arxiv_doi(doi)
+    venue = bool(venue_name(work)) and not is_preprint_like(work)
+    metadata = sum(
+        bool(work.get(field))
+        for field in ("publication_date", "publication_year", "biblio", "best_oa_location")
+    )
+    date = str(work.get("publication_date") or "")
+    return (int(published), int(journal_doi), int(venue), metadata, date)
+
+
+def merge_work_group(group: list[dict[str, Any]]) -> dict[str, Any]:
+    """Keep the best bibliographic record and fill it with preprint metadata."""
+    preferred = max(group, key=publication_rank)
+    merged = copy.deepcopy(preferred)
+
+    longest_authorships = max(
+        (work.get("authorships") or [] for work in group), key=len, default=[]
+    )
+    if len(longest_authorships) > len(merged.get("authorships") or []):
+        merged["authorships"] = copy.deepcopy(longest_authorships)
+
+    locations: list[dict[str, Any]] = []
+    seen_locations: set[tuple[str, str]] = set()
+    for work in group:
+        candidates = list(work.get("locations") or [])
+        for key in ("primary_location", "best_oa_location"):
+            if work.get(key):
+                candidates.append(work[key])
+        for location in candidates:
+            identity = (
+                str(location.get("landing_page_url") or ""),
+                str(location.get("pdf_url") or ""),
+            )
+            if identity != ("", "") and identity not in seen_locations:
+                locations.append(copy.deepcopy(location))
+                seen_locations.add(identity)
+    merged["locations"] = locations
+
+    preprint_id = next((arxiv_id(work) for work in group if arxiv_id(work)), "")
+    if preprint_id:
+        merged.setdefault("ids", {})["arxiv"] = f"https://arxiv.org/abs/{preprint_id}"
+
+    best_oa = merged.get("best_oa_location") or {}
+    if not best_oa.get("pdf_url"):
+        pdf_location = next(
+            (
+                location
+                for location in locations
+                if location.get("pdf_url") and "arxiv" in str(location.get("pdf_url")).casefold()
+            ),
+            None,
+        ) or next((location for location in locations if location.get("pdf_url")), None)
+        if pdf_location:
+            merged["best_oa_location"] = copy.deepcopy(pdf_location)
+    return merged
+
+
+def deduplicate_works(
+    works: dict[str, dict[str, Any]], provenance: dict[str, set[str]]
+) -> tuple[dict[str, dict[str, Any]], dict[str, set[str]]]:
+    """Merge OpenAlex records representing the same preprint/journal paper.
+
+    DOI and arXiv identities are always merged case-insensitively. Records with
+    the same normalized title are merged when at least one is a preprint-like
+    record. Two published records with distinct publisher DOIs remain separate.
+    """
+    entries = list(works.items())
+    parent = list(range(len(entries)))
+
+    def find(index: int) -> int:
+        while parent[index] != index:
+            parent[index] = parent[parent[index]]
+            index = parent[index]
+        return index
+
+    def union(left: int, right: int) -> None:
+        left_root, right_root = find(left), find(right)
+        if left_root != right_root:
+            parent[right_root] = left_root
+
+    identities: dict[tuple[str, str], int] = {}
+    title_groups: dict[str, list[int]] = {}
+    for index, (_, work) in enumerate(entries):
+        doi = clean_doi(work.get("doi")).casefold()
+        arxiv = arxiv_id(work).casefold()
+        for kind, value in (("doi", doi), ("arxiv", arxiv)):
+            if not value:
+                continue
+            identity = (kind, value)
+            if identity in identities:
+                union(index, identities[identity])
+            else:
+                identities[identity] = index
+        title = normalized_title(work)
+        if title:
+            title_groups.setdefault(title, []).append(index)
+
+    for indexes in title_groups.values():
+        preprints = [index for index in indexes if is_preprint_like(entries[index][1])]
+        published = [index for index in indexes if index not in preprints]
+        for index in preprints[1:]:
+            union(preprints[0], index)
+        if preprints and published:
+            preferred_published = max(published, key=lambda index: publication_rank(entries[index][1]))
+            union(preprints[0], preferred_published)
+
+    groups: dict[int, list[int]] = {}
+    for index in range(len(entries)):
+        groups.setdefault(find(index), []).append(index)
+
+    deduplicated: dict[str, dict[str, Any]] = {}
+    deduplicated_provenance: dict[str, set[str]] = {}
+    for indexes in groups.values():
+        group_works = [entries[index][1] for index in indexes]
+        merged = merge_work_group(group_works)
+        key = str(merged.get("id") or work_key(merged)).casefold()
+        deduplicated[key] = merged
+        members: set[str] = set()
+        for index in indexes:
+            members.update(provenance.get(entries[index][0], set()))
+        deduplicated_provenance[key] = members
+    return deduplicated, deduplicated_provenance
 
 
 def slugify(value: str, limit: int = 58) -> str:
@@ -249,7 +500,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--people", type=Path, default=Path("_people"), help="profile directory")
     parser.add_argument("--output", type=Path, default=Path("_publications"), help="publication directory")
-    parser.add_argument("--since", default="2010-01-01", help="earliest publication date (YYYY-MM-DD)")
+    parser.add_argument("--since", default="1980-01-01", help="earliest publication date (YYYY-MM-DD)")
     parser.add_argument("--dry-run", action="store_true", help="report changes without writing files")
     parser.add_argument("--prune", action="store_true", help="remove generated files no longer returned by OpenAlex")
     parser.add_argument("--include-all-types", action="store_true", help="include books, datasets, and other non-paper works")
@@ -266,8 +517,8 @@ def main() -> int:
 
     members = find_members(args.people)
     if not members:
-        print(f"No published profiles with valid ORCIDs found in {args.people}.")
-        print("Add an ORCID to a member profile, then run this command again.")
+        print(f"No published profiles with valid ORCIDs or OpenAlex IDs found in {args.people}.")
+        print("Add an ORCID or openalex_id to a member profile, then run this command again.")
         return 0
 
     client = OpenAlexClient(os.environ.get("OPENALEX_EMAIL", ""))
@@ -275,13 +526,14 @@ def main() -> int:
     member_author_ids: dict[str, str] = {}
     for member in members:
         try:
-            author = client.resolve_author(member.orcid)
+            author = client.author(member.openalex_id) if member.openalex_id else client.resolve_author(member.orcid)
         except RuntimeError as error:
-            print(f"warning: could not resolve {member.name} ({member.orcid}): {error}", file=sys.stderr)
+            identifier = member.openalex_id or member.orcid
+            print(f"warning: could not resolve {member.name} ({identifier}): {error}", file=sys.stderr)
             continue
         author_id = str(author.get("id", "")).rsplit("/", 1)[-1]
         if not author_id:
-            print(f"warning: OpenAlex has no author for {member.name} ({member.orcid})", file=sys.stderr)
+            print(f"warning: OpenAlex has no author for {member.name}", file=sys.stderr)
             continue
         resolved[author_id] = member.name
         member_author_ids[member.name] = author_id
@@ -293,11 +545,23 @@ def main() -> int:
         author_id = member_author_ids.get(member.name)
         if not author_id:
             continue
+        allowlist: WorkAllowlist | None = None
+        if member.publication_filter == "orcid":
+            try:
+                allowlist = orcid_work_allowlist(client.orcid_works(member.orcid))
+            except RuntimeError as error:
+                print(f"error: could not load ORCID works for {member.name}: {error}", file=sys.stderr)
+                return 1
+            print(f"Using the ORCID-curated works list to filter {member.name}.")
         print(f"Fetching works for {member.name} since {args.since}…")
+        filtered = 0
         try:
             author_works = client.works(author_id, args.since)
             for work in author_works:
                 if not args.include_all_types and work.get("type") not in ALLOWED_TYPES:
+                    continue
+                if allowlist is not None and not work_is_allowlisted(work, allowlist):
+                    filtered += 1
                     continue
                 key = work_key(work)
                 if not key:
@@ -307,6 +571,12 @@ def main() -> int:
         except RuntimeError as error:
             print(f"error: {error}", file=sys.stderr)
             return 1
+        if filtered:
+            print(f"Filtered {filtered} unverified OpenAlex works for {member.name}.")
+
+    raw_count = len(works)
+    works, provenance = deduplicate_works(works, provenance)
+    duplicate_count = raw_count - len(works)
 
     args.output.mkdir(parents=True, exist_ok=True)
     changed = 0
@@ -335,7 +605,10 @@ def main() -> int:
                     path.unlink()
                 removed += 1
 
-    print(f"Found {len(works)} unique papers; {changed} changed, {removed} removed.")
+    print(
+        f"Found {len(works)} unique papers; merged {duplicate_count} duplicate records; "
+        f"{changed} changed, {removed} removed."
+    )
     return 0
 
 

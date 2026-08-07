@@ -1,0 +1,131 @@
+- key: former-faculty
+  label: Former faculty
+  members:
+    - name: Marco Cavaglia
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Marco
+      contact: cavaglia at phy.olemiss.edu
+    - name: Emanuele Berti
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Emanuele
+      contact: eberti at jhu.edu
+
+- key: former-visiting-faculty
+  label: Former visiting faculty
+  members:
+    - name: Mihai Bondarescu
+    - name: Raymond Puzio
+    - name: Itai Seggev
+
+- key: former-postdocs
+  label: Former postdocs
+  members:
+    - name: Shivaraj Kandhasamy
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Shivaraj
+      contact: shivaraj.kandhasamy at ligo.org
+    - name: Vitor Cardoso
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Vitor
+      contact: cardoso at phy.olemiss.edu
+    - name: Alejandro Corichi
+      website: http://www.matmor.unam.mx/~corichi/
+      contact: corichi at matmor.unam.mx
+    - name: Alexander Dietz
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Alexander
+      contact: dietz at phy.olemiss.edu
+    - name: Michael Horbatsch
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Michael
+      contact: mwhorbatsch at gmail.com
+    - name: Antoine Klein
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Antoine
+      contact: antoine.klein at gmail.com
+    - name: Atsushi Nishizawa
+      website: http://www.phy.olemiss.edu/~anishi/
+      contact: anishi at phy.olemiss.edu
+    - name: George Pappas
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=George
+      contact: gpappas at olemiss.edu
+    - name: Jocelyn Read
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Jocelyn
+      contact: jsread at relativity.phy.olemiss.edu
+
+- key: former-students
+  label: Former students
+  members:
+    - name: Mir Emad Aghili
+      website: https://relativity.phy.olemiss.edu/~emad/
+      contact: maghili at go.olemiss.edu
+    - name: Shrobana Ghosh
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=shrobana-ghosh
+      contact: sghosh2 at go.olemiss.edu
+    - name: Nauman Ibrahim
+    - name: Saeed Kamali
+      contact: skamali at go.olemiss.edu
+    - name: Akshay Khadse
+      contact: akhadse at go.olemiss.edu
+    - name: He “Larry” Liu
+      contact: hliu6 at go.olemiss.edu
+    - name: Lorena Magaña Zertuche
+      contact: lmaganaz at go.olemiss.edu
+    - name: BB Pilgrim
+      contact: bbpilgri at go.olemiss.edu
+    - name: Joe Rivest
+      contact: ljrivest at go.olemiss.edu
+    - name: Sashwat Tanay
+      contact: stanay at go.olemiss.edu
+    - name: Cody Arceneaux
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Arceneaux
+      contact: ccarcene at go.olemiss.edu
+    - name: Brett Bolen
+      website: https://www.gvsu.edu/physics/dr-brett-bolen-62.htm
+      contact: bolenbr at gvsu.edu
+    - name: Jericho Cain
+    - name: Caixia “Sky” Gao
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Sky
+      contact: cgao1 at go.olemiss.edu
+    - name: Jun-Qi Guo
+      contact: ga35 at sfu.ca
+    - name: Barnabas Kipapa
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Barnabas
+      contact: brkipapa at olemiss.edu
+    - name: Brian Mazur
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Brian
+      contact: Brian.Mazur at rockets.utoledo.edu
+    - name: Arif Mohd
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Arif
+      contact: arif.mohd at sissa.it
+    - name: Hector Okada da Silva
+      website: http://www.phy.olemiss.edu/~hosilva/index.html
+      contact: hector.okadadasilva at montana.edu
+    - name: Brooke Rankins
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Brooke
+      contact: rankins at phy.olemiss.edu
+    - name: Arunava Roy
+    - name: Julio Tafoya
+      website: http://www.phy.olemiss.edu/~julio/
+      contact: julio.tafoya at th.u-psud.fr
+    - name: Tezeswi Tadepalli
+      website: http://www.engineering.olemiss.edu/~tadepali/
+      contact: tadepali at olemiss.edu
+    - name: Zhongyang Zhang
+      website: https://relativity.phy.olemiss.edu/GR/static.php?page=Zhongyang
+      contact: zzy2417 at gmail.com
+
+- key: former-visiting-students
+  label: Former visiting students
+  members:
+    - name: Olmo Cerri
+    - name: Camillo Cocchieri
+    - name: Daniele Trifiro
+    - name: Fabrizia Canfora
+    - name: Domizia Chericoni
+    - name: Davide Gerosa
+      website: http://www.damtp.cam.ac.uk/user/dg438/
+      contact: d.gerosa at damtp.cam.ac.uk
+    - name: Michele Mancarella
+    - name: Alessandro Manzotti
+    - name: Johan Noldus
+      contact: johan.noldus at gmail.com
+    - name: Carlo Enrico Petrillo
+    - name: Giovanni Rabuffo
+      contact: g.rabuffo at live.it
+    - name: Roman Sverdlov
+      contact: roman at phy.olemiss.edu
+    - name: Laura Torino

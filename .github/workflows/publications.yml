@@ -8,7 +8,7 @@ on:
       since:
         description: Earliest publication date to import
         required: false
-        default: "2010-01-01"
+        default: "1980-01-01"
 
 permissions:
   contents: write
@@ -26,7 +26,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Fetch works from OpenAlex
-        run: python3 scripts/fetch_publications.py --since "${{ inputs.since || '2010-01-01' }}"
+        run: python3 scripts/fetch_publications.py --since "${{ inputs.since || '1980-01-01' }}" --prune
         env:
           OPENALEX_EMAIL: ${{ vars.OPENALEX_EMAIL }}
       - name: Commit publication updates
@@ -40,4 +40,3 @@ jobs:
           git add _publications
           git commit -m "Update publications"
           git push
-

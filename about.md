@@ -5,7 +5,9 @@ eyebrow: About the group
 intro: We are a research community in the Department of Physics and Astronomy at the University of Mississippi.
 permalink: /about/
 ---
-Our group works across gravitational physics, relativistic astrophysics, and the foundations of spacetime. We combine analytical calculations, numerical simulations, and observational inference, with collaborations extending well beyond campus.
+Our research spans gravitational physics, relativistic astrophysics, spacetime
+geometry, and field theory. We use analytical calculations, numerical
+simulations, gravitational-wave data, and electromagnetic observations.
 
 ## Find us
 
@@ -17,5 +19,13 @@ For research questions, contact the relevant person on our [people page]({{ '/pe
 
 ## Collaborations
 
-Group members participate in international collaborations and research networks in gravitational-wave science, numerical relativity, and gravitational theory. Add current collaboration marks or links here once approved for use.
+Current collaborations include the Simulating eXtreme Spacetimes (SXS)
+Collaboration, the LIGO Scientific Collaboration, and the LISA Consortium.
+Through these international networks, group members contribute to numerical
+relativity, gravitational-wave observations, source modeling, and future
+space-based gravitational-wave science.
 
+## Brand resources
+
+Logos and other group assets will be available on the [brand resources
+page]({{ '/brand/' | relative_url }}) once the current design work is complete.

@@ -1,17 +1,24 @@
 - number: "01"
-  title: Gravitational waves
-  description: Reading the universe through signals from merging black holes, neutron stars, and other compact systems.
+  title: Gravitational-wave astronomy
+  description: We use current and future gravitational-wave observations to study compact objects, cosmology, and gravity.
   slug: gravitational-waves
 - number: "02"
-  title: Strong-field gravity
-  description: Testing relativity where spacetime is most curved and exploring signatures of physics beyond Einstein.
-  slug: strong-field-gravity
-- number: "03"
-  title: Compact objects
-  description: Connecting black-hole and neutron-star dynamics to observable astrophysical phenomena.
+  title: Compact binaries & waveforms
+  description: We model eccentric, spinning, and precessing compact binaries with analytical and numerical relativity.
   slug: compact-objects
+- number: "03"
+  title: Strong-field gravity
+  description: We test general relativity around black holes and neutron stars and search for signs of new gravitational physics.
+  slug: strong-field-gravity
 - number: "04"
-  title: Spacetime foundations
-  description: Investigating quantum gravity, causal structure, and the geometry underlying gravitational physics.
+  title: Relativistic jets
+  description: We combine radio observations, polarimetry, theory, and simulations to study plasma jets launched by black holes.
+  slug: relativistic-jets
+- number: "05"
+  title: Quantum spacetime & geometry
+  description: We study causal structure, quantum gravity, curved spacetime, and the geometry underlying gravitational phenomena.
   slug: spacetime-foundations
-
+- number: "06"
+  title: Field theory & bootstrap
+  description: We use effective field theory, scattering amplitudes, positivity, and bootstrap methods to study consistency in physical theories.
+  slug: field-theory-bootstrap

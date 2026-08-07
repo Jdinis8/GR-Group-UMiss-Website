@@ -1,19 +1,30 @@
-- key: full-professor
-  label: Full professors
-- key: associate-professor
-  label: Associate professors
-- key: assistant-professor
-  label: Assistant professors
+- key: faculty
+  label: Faculty
+  roles:
+    - full-professor
+    - associate-professor
+    - assistant-professor
 - key: postdoc
   label: Postdoctoral researchers
+  roles:
+    - postdoc
 - key: phd-student
   label: PhD students
+  roles:
+    - phd-student
 - key: masters-student
   label: Master’s students
+  roles:
+    - masters-student
 - key: undergraduate
   label: Undergraduate researchers
+  roles:
+    - undergraduate
 - key: staff
   label: Research staff
+  roles:
+    - staff
 - key: affiliate
   label: Affiliates
-
+  roles:
+    - affiliate

@@ -1,6 +1,6 @@
 ---
 title: Gravity & Astrophysics at Ole Miss
-description: Exploring gravity, compact objects, gravitational waves, and the structure of spacetime at the University of Mississippi.
+description: Exploring gravitational waves, compact binaries, relativistic jets, quantum spacetime, and fundamental field theory at the University of Mississippi.
 body_class: home
 ---
 <section class="home-hero">
@@ -21,7 +21,7 @@ body_class: home
     <h1 class="hero-title">Reading the shape <em>of spacetime.</em></h1>
     <div class="hero-bottom">
       <div class="hero-index">Oxford, Mississippi<br>34.3665° N · 89.5192° W</div>
-      <p class="hero-intro">We study gravity in its most dynamical regimes—from compact binaries and gravitational-wave observations to the fundamental structure of spacetime.</p>
+      <p class="hero-intro">We study gravity from its fundamental geometric and field-theoretic structure to compact binaries, gravitational-wave observations, and relativistic black-hole jets.</p>
     </div>
   </div>
   <span class="scroll-cue">Scroll to explore</span>
@@ -29,16 +29,16 @@ body_class: home
 
 <section class="intro-strip" aria-label="Group introduction">
   <div class="shell intro-strip-grid">
-    <div class="intro-strip-label"><p class="eyebrow">One group · Many scales</p></div>
-    <div class="intro-strip-text"><p>We connect mathematical insight, numerical experiments, and observations to ask how gravity works—and what it can reveal about our universe.</p></div>
+    <div class="intro-strip-label"><p class="eyebrow">Theory · Simulation · Observation</p></div>
+    <div class="intro-strip-text"><p>We use mathematical theory, numerical simulations, gravitational-wave data, and electromagnetic observations to study gravity and relativistic astrophysics.</p></div>
   </div>
 </section>
 
 <section class="research-section">
   <div class="shell">
     <div class="section-heading">
-      <div><p class="eyebrow">What we investigate</p><h2 class="section-title">Research without boundaries.</h2></div>
-      <p>Our work spans theory, computation, and observation, united by the physics of gravity.</p>
+      <div><p class="eyebrow">What we investigate</p><h2 class="section-title">Our research.</h2></div>
+      <p>Our work spans fundamental theory, computational relativity, gravitational-wave inference, and observational astrophysics.</p>
     </div>
     <div class="topic-grid">
       {% for topic in site.data.research_topics %}
@@ -64,9 +64,9 @@ body_class: home
       </svg>
     </div>
     <div class="feature-copy">
-      <p class="eyebrow">A new way to observe</p>
-      <h2>Listening to the universe.</h2>
-      <p>Gravitational waves carry pristine information from the strongest gravitational fields in nature. We model their sources, analyze their signals, and use them to test our understanding of the cosmos.</p>
+      <p class="eyebrow">Gravitational-wave astronomy</p>
+      <h2>Studying the universe with gravitational waves.</h2>
+      <p>We model gravitational-wave sources, analyze detector data, and use observations to study compact objects and test general relativity.</p>
       <a class="button button-light" href="{{ '/research/' | relative_url }}">Explore our research</a>
     </div>
   </div>
@@ -75,7 +75,7 @@ body_class: home
 <section class="latest-section">
   <div class="shell">
     <div class="section-heading">
-      <div><p class="eyebrow">From the group</p><h2 class="section-title">Latest signals.</h2></div>
+      <div><p class="eyebrow">From the group</p><h2 class="section-title">Latest from the group.</h2></div>
       <p>Recent research and news from the Gravity and Astrophysics group.</p>
     </div>
     <div class="latest-grid">
@@ -88,7 +88,7 @@ body_class: home
               <span class="meta">{{ paper.year }}{% if paper.venue %} · {{ paper.venue }}{% endif %}</span><h3>{{ paper.title }}</h3>
             </a>
           {% else %}
-            <p class="empty-note">Publications appear here after the importer is run with member ORCIDs.</p>
+            <p class="empty-note">No publications are listed yet.</p>
           {% endfor %}
         </div>
         <p><a class="text-link" href="{{ '/publications/' | relative_url }}">All publications <span>↗</span></a></p>
@@ -99,7 +99,7 @@ body_class: home
           {% for post in site.posts limit: 3 %}
             <a class="home-list-item" href="{{ post.url | relative_url }}"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%B %d, %Y' }}</time><h3>{{ post.title }}</h3></a>
           {% else %}
-            <p class="empty-note">News, seminars, and group announcements will appear here.</p>
+            <p class="empty-note">No news has been posted yet.</p>
           {% endfor %}
         </div>
         <p><a class="text-link" href="{{ '/news/' | relative_url }}">All news <span>↗</span></a></p>
@@ -107,4 +107,3 @@ body_class: home
     </div>
   </div>
 </section>
-

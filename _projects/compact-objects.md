@@ -1,11 +1,17 @@
 ---
-title: Compact objects
-number: "03"
-intro: Understanding black holes and neutron stars as engines of extreme astrophysical phenomena.
+title: Compact binaries & waveforms
+number: "02"
+intro: Building accurate descriptions of orbiting and merging compact objects across analytical and numerical relativity.
 ---
-Compact objects bring together gravity, nuclear physics, plasma physics, and high-energy astrophysics. Their binaries and oscillations encode information about dynamics on scales from stellar interiors to curved spacetime.
+Compact binaries turn relativistic dynamics into observable gravitational
+waveforms. We study systems with eccentricity, spin precession, and strong
+nonlinear interactions, using complementary analytical and computational
+descriptions from the early inspiral through merger and ringdown.
 
-## From sources to signals
+## From dynamics to signals
 
-We study how compact systems form and evolve, how their intrinsic properties shape gravitational radiation, and what observations can teach us about the underlying populations.
-
+Our methods include post-Newtonian theory, numerical relativity,
+hyperboloidal evolution, perturbative calculations, and surrogate or reduced
+waveform models. We also study the asymptotic structure of spacetime—including
+BMS symmetries and frame choices—to connect simulations cleanly to radiation
+measured far from the source.

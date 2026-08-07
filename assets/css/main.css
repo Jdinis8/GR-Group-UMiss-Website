@@ -149,6 +149,17 @@ button, input, select { font: inherit; }
 .person-card h3 { margin: 0 0 6px; font-family: var(--serif); font-size: 1.65rem; font-weight: 400; line-height: 1.15; }
 .person-card h3 a { text-decoration: none; }
 .person-card-body > p { min-height: 3.2em; margin: 0 0 16px; color: var(--muted); font-size: .88rem; }
+.past-members-intro { max-width: 680px; margin: 26px 0 58px; color: var(--muted); font-family: var(--serif); font-size: 1.25rem; }
+.former-member-groups { display: grid; gap: 58px; }
+.former-member-group-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; }
+.former-member-group-head h3 { margin: 0; font-family: var(--serif); font-size: 1.75rem; font-weight: 400; }
+.former-member-group-head span { color: var(--red); font-family: var(--mono); font-size: .62rem; }
+.former-member-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); list-style: none; }
+.former-member-list li { min-width: 0; padding: 18px 20px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.former-member-name { display: block; font-family: var(--serif); font-size: 1.08rem; line-height: 1.25; text-decoration: none; }
+a.former-member-name:hover { color: var(--red); }
+.former-member-name span { font-family: var(--sans); font-size: .72em; }
+.former-member-contact { display: block; margin-top: 7px; overflow-wrap: anywhere; color: var(--muted); font-family: var(--mono); font-size: .55rem; letter-spacing: .025em; }
 .person-profile { padding: 86px 0 130px; border-top: 84px solid var(--night); background: var(--paper); }
 .profile-grid { display: grid; grid-template-columns: minmax(300px, .72fr) 1fr; gap: clamp(60px, 9vw, 130px); }
 .profile-image-wrap { position: sticky; top: 120px; align-self: start; }
@@ -230,7 +241,7 @@ button, input, select { font: inherit; }
   .topic-row p { display: none; }
   .feature-grid { gap: 70px; }
   .latest-grid { gap: 80px; }
-  .people-grid { grid-template-columns: repeat(2, 1fr); }
+  .people-grid, .former-member-list { grid-template-columns: repeat(2, 1fr); }
   .profile-image-wrap { position: static; max-width: 520px; }
   .research-cards, .news-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -253,7 +264,7 @@ button, input, select { font: inherit; }
   .research-section, .latest-section { padding-block: 85px; }
   .feature-band { padding-block: 85px; }
   .topic-row { grid-template-columns: 35px 1fr 20px; min-height: 110px; }
-  .people-grid { grid-template-columns: 1fr; }
+  .people-grid, .former-member-list { grid-template-columns: 1fr; }
   .person-card-body > p { min-height: 0; }
   .page-hero { padding: 150px 0 70px; }
   .page-body, .people-page, .research-index { padding-block: 70px 90px; }

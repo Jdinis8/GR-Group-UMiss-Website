@@ -6,35 +6,62 @@ permalink: /people/
 ---
 <header class="page-hero">
   <div class="shell page-hero-inner">
-    <p class="eyebrow">Our community</p>
-    <h1>People shaping our questions.</h1>
-    <p class="page-intro">The group brings together faculty, postdoctoral researchers, and students working across gravitational physics and astrophysics.</p>
+    <p class="eyebrow">Our group</p>
+    <h1>Meet the group.</h1>
+    <p class="page-intro">We are faculty, postdoctoral researchers, and students working in gravitational physics and astrophysics.</p>
   </div>
 </header>
 <div class="shell people-page" data-people-directory>
   {% assign active_people = site.people | where_exp: 'person', 'person.alumni != true' %}
+  {% assign former_member_count = 0 %}
+  {% for group in site.data.former_members %}
+    {% assign former_member_count = former_member_count | plus: group.members.size %}
+  {% endfor %}
   {% if active_people.size > 0 %}
     <div class="filter-bar" role="group" aria-label="Filter people by role">
       <button class="filter-button is-active" type="button" data-role-filter="all">Everyone</button>
-      {% for role in site.data.roles %}
-        {% assign role_count = active_people | where: 'role', role.key | size %}
-        {% if role_count > 0 %}<button class="filter-button" type="button" data-role-filter="{{ role.key }}">{{ role.label }}</button>{% endif %}
+      {% for section in site.data.roles %}
+        {% assign section_people = active_people | where_exp: 'person', 'section.roles contains person.role' %}
+        {% if section_people.size > 0 %}<button class="filter-button" type="button" data-role-filter="{{ section.key }}">{{ section.label }}</button>{% endif %}
       {% endfor %}
+      {% if former_member_count > 0 %}<button class="filter-button" type="button" data-role-filter="past-members">Past members</button>{% endif %}
     </div>
-    {% for role in site.data.roles %}
-      {% assign role_people = active_people | where: 'role', role.key | sort: 'order' %}
-      {% if role_people.size > 0 %}
-        <section class="role-section" data-role-section="{{ role.key }}">
-          <div class="role-section-head"><h2>{{ role.label }}</h2><span>{{ role_people.size | prepend: '0' | slice: -2, 2 }}</span></div>
-          <div class="people-grid">{% for person in role_people %}{% include person-card.html person=person %}{% endfor %}</div>
+    {% for section in site.data.roles %}
+      {% assign section_people = active_people | where_exp: 'person', 'section.roles contains person.role' | sort_natural: 'last_name' %}
+      {% if section_people.size > 0 %}
+        <section class="role-section" data-role-section="{{ section.key }}">
+          <div class="role-section-head"><h2>{{ section.label }}</h2><span>{{ section_people.size | prepend: '0' | slice: -2, 2 }}</span></div>
+          <div class="people-grid">{% for person in section_people %}{% include person-card.html person=person %}{% endfor %}</div>
         </section>
       {% endif %}
     {% endfor %}
+    {% if former_member_count > 0 %}
+      <section class="role-section past-members-section" data-role-section="past-members">
+        <div class="role-section-head"><h2>Past members</h2><span>{{ former_member_count | prepend: '0' | slice: -2, 2 }}</span></div>
+        <p class="past-members-intro">Former faculty, postdoctoral researchers, students, and visitors who have contributed to the group.</p>
+        <div class="former-member-groups">
+          {% for group in site.data.former_members %}
+            <section class="former-member-group" aria-labelledby="{{ group.key }}-heading">
+              <div class="former-member-group-head">
+                <h3 id="{{ group.key }}-heading">{{ group.label }}</h3>
+                <span>{{ group.members.size | prepend: '0' | slice: -2, 2 }}</span>
+              </div>
+              <ul class="former-member-list">
+                {% for member in group.members %}
+                  <li>
+                    {% if member.website %}<a class="former-member-name" href="{{ member.website }}">{{ member.name }} <span aria-hidden="true">↗</span></a>{% else %}<span class="former-member-name">{{ member.name }}</span>{% endif %}
+                    {% if member.contact %}<span class="former-member-contact">{{ member.contact }}</span>{% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </section>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
   {% else %}
     <div class="prose">
-      <h2>The directory is ready for your group.</h2>
-      <p>No production profiles have been added yet. Copy <code>_people/_profile-template.md</code>, replace the example fields, and add a portrait under <code>assets/images/people/</code>. The person will automatically appear here under the correct role.</p>
+      <h2>No profiles are available yet.</h2>
     </div>
   {% endif %}
 </div>
-
