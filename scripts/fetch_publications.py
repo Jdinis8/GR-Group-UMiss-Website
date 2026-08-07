@@ -39,6 +39,7 @@ class Member:
     orcid: str
     openalex_id: str
     publication_filter: str
+    publication_include: frozenset[str]
     source: Path
 
 
@@ -106,7 +107,7 @@ class OpenAlexClient:
                     "select": (
                         "id,doi,title,display_name,publication_year,publication_date,type,"
                         "authorships,primary_location,best_oa_location,locations,ids,biblio,"
-                        "open_access"
+                        "open_access,primary_topic,topics"
                     ),
                 },
             )
@@ -152,18 +153,21 @@ def find_members(directory: Path) -> list[Member]:
             print(f"warning: invalid OpenAlex author ID {openalex_id!r} in {path}", file=sys.stderr)
             continue
         publication_filter = str(data.get("publication_filter", "")).strip().casefold()
-        if publication_filter not in {"", "orcid"}:
+        if publication_filter not in {"", "orcid", "physics"}:
             print(f"warning: invalid publication_filter {publication_filter!r} in {path}", file=sys.stderr)
             continue
         if publication_filter == "orcid" and not orcid:
             print(f"warning: publication_filter 'orcid' requires an ORCID in {path}", file=sys.stderr)
             continue
+        include_value = str(data.get("publication_include", "")).upper()
+        publication_include = frozenset(re.findall(r"W\d+", include_value))
         members.append(
             Member(
                 str(data.get("name", path.stem)),
                 orcid,
                 openalex_id,
                 publication_filter,
+                publication_include,
                 path,
             )
         )
@@ -204,6 +208,19 @@ def normalize_title_value(value: Any) -> str:
     return "".join(character for character in title if character.isalnum())
 
 
+def has_meaningful_title(work: dict[str, Any]) -> bool:
+    """Reject placeholder records and publisher notices rather than papers."""
+    title = html.unescape(str(work.get("display_name") or work.get("title") or ""))
+    title = re.sub(r"<[^>]+>", "", title).strip().casefold().replace("’", "'")
+    if not title or title in {"untitled", "publication"}:
+        return False
+    return not re.match(r"^(?:publisher'?s note|erratum|corrigendum|correction)\b", title)
+
+
+def openalex_work_id(work: dict[str, Any]) -> str:
+    return str(work.get("id") or "").rstrip("/").rsplit("/", 1)[-1].upper()
+
+
 def orcid_work_allowlist(payload: dict[str, Any]) -> WorkAllowlist:
     """Build stable identifiers from the works curated on an ORCID record."""
     dois: set[str] = set()
@@ -241,6 +258,17 @@ def work_is_allowlisted(work: dict[str, Any], allowlist: WorkAllowlist) -> bool:
     )
 
 
+def work_is_physics(work: dict[str, Any]) -> bool:
+    """Accept works classified by OpenAlex in Physics and Astronomy."""
+    topics = [work.get("primary_topic") or {}, *(work.get("topics") or [])]
+    for topic in topics:
+        field = topic.get("field") or {}
+        field_id = str(field.get("id") or "").rstrip("/").rsplit("/", 1)[-1]
+        if field_id == "31" or str(field.get("display_name") or "").casefold() == "physics and astronomy":
+            return True
+    return False
+
+
 def venue_name(work: dict[str, Any]) -> str:
     for key in ("primary_location", "best_oa_location"):
         source = (work.get(key) or {}).get("source") or {}
@@ -256,6 +284,15 @@ def author_names(work: dict[str, Any]) -> list[str]:
         if name:
             names.append(str(name))
     return names
+
+
+def author_ids(work: dict[str, Any]) -> set[str]:
+    """Return stable OpenAlex author IDs for duplicate comparisons."""
+    return {
+        str((authorship.get("author") or {}).get("id", "")).rsplit("/", 1)[-1]
+        for authorship in work.get("authorships") or []
+        if (authorship.get("author") or {}).get("id")
+    }
 
 
 def author_summary(names: list[str]) -> str:
@@ -373,8 +410,10 @@ def deduplicate_works(
     """Merge OpenAlex records representing the same preprint/journal paper.
 
     DOI and arXiv identities are always merged case-insensitively. Records with
-    the same normalized title are merged when at least one is a preprint-like
-    record. Two published records with distinct publisher DOIs remain separate.
+    the same normalized title are also merged when they share an OpenAlex
+    author, covering repository copies, versioned preprints, conference copies,
+    and duplicate publisher records without conflating unrelated papers that
+    happen to reuse a title.
     """
     entries = list(works.items())
     parent = list(range(len(entries)))
@@ -408,13 +447,13 @@ def deduplicate_works(
             title_groups.setdefault(title, []).append(index)
 
     for indexes in title_groups.values():
-        preprints = [index for index in indexes if is_preprint_like(entries[index][1])]
-        published = [index for index in indexes if index not in preprints]
-        for index in preprints[1:]:
-            union(preprints[0], index)
-        if preprints and published:
-            preferred_published = max(published, key=lambda index: publication_rank(entries[index][1]))
-            union(preprints[0], preferred_published)
+        for position, left in enumerate(indexes):
+            left_authors = author_ids(entries[left][1])
+            if not left_authors:
+                continue
+            for right in indexes[position + 1 :]:
+                if left_authors.intersection(author_ids(entries[right][1])):
+                    union(left, right)
 
     groups: dict[int, list[int]] = {}
     for index in range(len(entries)):
@@ -553,6 +592,8 @@ def main() -> int:
                 print(f"error: could not load ORCID works for {member.name}: {error}", file=sys.stderr)
                 return 1
             print(f"Using the ORCID-curated works list to filter {member.name}.")
+        elif member.publication_filter == "physics":
+            print(f"Using OpenAlex Physics and Astronomy topics to filter {member.name}.")
         print(f"Fetching works for {member.name} since {args.since}…")
         filtered = 0
         try:
@@ -560,9 +601,17 @@ def main() -> int:
             for work in author_works:
                 if not args.include_all_types and work.get("type") not in ALLOWED_TYPES:
                     continue
-                if allowlist is not None and not work_is_allowlisted(work, allowlist):
+                if not has_meaningful_title(work):
                     filtered += 1
                     continue
+                force_include = openalex_work_id(work) in member.publication_include
+                if not force_include:
+                    if allowlist is not None and not work_is_allowlisted(work, allowlist):
+                        filtered += 1
+                        continue
+                    if member.publication_filter == "physics" and not work_is_physics(work):
+                        filtered += 1
+                        continue
                 key = work_key(work)
                 if not key:
                     continue

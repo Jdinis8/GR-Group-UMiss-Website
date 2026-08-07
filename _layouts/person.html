@@ -17,6 +17,7 @@ layout: default
       {% if page.tagline %}<p class="profile-tagline">{{ page.tagline }}</p>{% endif %}
       <div class="profile-links">
         {% if page.email %}<a href="mailto:{{ page.email }}">Email</a>{% endif %}
+        {% if page.olemiss_profile %}<a href="{{ page.olemiss_profile }}">Ole Miss profile</a>{% endif %}
         {% if page.website %}<a href="{{ page.website }}">Website</a>{% endif %}
         {% if page.scholar %}<a href="{{ page.scholar | escape }}">Google Scholar</a>{% endif %}
         {% if page.orcid %}<a href="https://orcid.org/{{ page.orcid }}">ORCID</a>{% endif %}

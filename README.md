@@ -47,7 +47,7 @@ unaccented spelling in that field when necessary, such as `Alvares` for
 Álvares.
 
 Profile links are optional. The supported fields are `email`, `website`,
-`scholar`, `orcid`, `openalex_id`, `inspire`, and `cv`.
+`olemiss_profile`, `scholar`, `orcid`, `openalex_id`, `inspire`, and `cv`.
 
 ## Add a former member
 
@@ -146,10 +146,16 @@ preprint and journal article exist, it keeps the journal metadata and retains
 the arXiv link when possible. Files marked `generated: true` belong to the
 importer; hand-written publication files are left alone.
 
-OpenAlex occasionally combines two people with similar names. For an affected
-profile, `publication_filter: orcid` restricts the import to work listed on
-that person's ORCID record. Luca Bombelli's profile uses this setting because
-his OpenAlex record also contains work by another L. Bombelli.
+OpenAlex occasionally combines people with similar names. For an affected
+profile, `publication_filter: orcid` restricts the import to work curated on
+that person's ORCID record. If the ORCID list is incomplete,
+`publication_filter: physics` instead accepts only work that OpenAlex
+classifies under Physics and Astronomy. Luca Bombelli uses the ORCID filter;
+Anuradha Gupta and Nicholas MacDonald use the topic filter.
+
+If OpenAlex misclassifies a legitimate paper, add its `W...` identifier to the
+profile's comma-separated `publication_include` field. This explicit exception
+is applied before the profile filter.
 
 The workflow in `.github/workflows/publications.yml` runs every Monday. It can
 also be started manually from the repository's Actions tab. The optional

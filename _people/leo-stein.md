@@ -10,6 +10,7 @@ research:
   - General relativity and modified gravity
   - Strong-field gravity
 website: https://duetosymmetry.com/
+olemiss_profile: https://olemiss.edu/profiles/lcstein.php
 orcid: 0000-0001-7559-9597
 openalex_id: A5064122083
 ---

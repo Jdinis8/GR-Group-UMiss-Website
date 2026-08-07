@@ -14,12 +14,15 @@ research:
   - Secondary research interest
 email: person@olemiss.edu
 website:
+olemiss_profile:
 scholar:
 orcid: 0000-0000-0000-0000
 # Optional but recommended when OpenAlex has duplicate ORCID records.
 openalex_id:
-# Optional safeguard for a contaminated OpenAlex author record: orcid
+# Optional safeguard for a contaminated OpenAlex author record: orcid or physics
 publication_filter:
+# Optional comma-separated OpenAlex work IDs that should bypass the filter.
+publication_include:
 inspire:
 cv:
 ---

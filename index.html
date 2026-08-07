@@ -39,7 +39,7 @@ body_class: home
         <div class="home-list">
           {% assign recent_papers = site.publications | sort: 'date' | reverse %}
           {% for paper in recent_papers limit: 3 %}
-            <a class="home-list-item" href="{% if paper.doi %}https://doi.org/{{ paper.doi }}{% else %}{{ paper.url }}{% endif %}">
+            <a class="home-list-item" href="{% if paper.doi and paper.doi != empty %}https://doi.org/{{ paper.doi }}{% elsif paper.arxiv and paper.arxiv != empty %}https://arxiv.org/abs/{{ paper.arxiv }}{% elsif paper.url and paper.url != empty %}{{ paper.url }}{% else %}{{ paper.openalex }}{% endif %}">
               <span class="meta">{{ paper.year }}{% if paper.venue %} · {{ paper.venue }}{% endif %}</span><h3>{{ paper.title }}</h3>
             </a>
           {% else %}

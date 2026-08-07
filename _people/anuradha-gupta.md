@@ -10,8 +10,11 @@ research:
   - Compact-binary dynamics
   - Tests of general relativity
 email: agupta1@olemiss.edu
+olemiss_profile: https://olemiss.edu/profiles/agupta1.php
 orcid: 0000-0002-5441-9013
 openalex_id: A5107987768
+# This OpenAlex record includes papers by other researchers with the same name.
+publication_filter: physics
 ---
 
 Anuradha works at the intersection of gravitational-wave astronomy,

@@ -11,9 +11,9 @@ volume: "692"
 issue: ""
 pages: "A140"
 doi: "10.1051/0004-6361/202450497"
-arxiv: ""
+arxiv: "2404.17623"
 openalex: "https://openalex.org/W4402624235"
-pdf: "https://pure.uva.nl/ws/files/217542264/Broadband_multi-wavelength_properties_of_M87_during_the_2018_EHT_campaign.pdf"
+pdf: "https://arxiv.org/pdf/2404.17623"
 work_type: "article"
 ---
 

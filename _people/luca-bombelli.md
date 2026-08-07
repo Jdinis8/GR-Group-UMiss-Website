@@ -10,7 +10,7 @@ research:
   - General-relativistic chaos
   - Waves and particles in curved spacetime
 email: bombelli@olemiss.edu
-website: https://olemiss.edu/profiles/bombelli
+olemiss_profile: https://olemiss.edu/profiles/bombelli.php
 orcid: 0000-0002-3471-359X
 openalex_id: A5028496727
 # OpenAlex merges Luca with another L. Bombelli; accept only works curated on his ORCID.

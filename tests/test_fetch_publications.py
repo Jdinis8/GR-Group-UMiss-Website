@@ -58,7 +58,29 @@ class PublicationImporterTests(unittest.TestCase):
                 encoding="utf-8",
             )
             member = publications.find_members(root)[0]
-            self.assertEqual(member.publication_filter, "orcid")
+        self.assertEqual(member.publication_filter, "orcid")
+
+    def test_profile_can_filter_ambiguous_openalex_record_by_physics_topic(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "ada.md").write_text(
+                "---\nname: Ada Ray\nopenalex_id: A123456789\n"
+                "publication_filter: physics\n---\n",
+                encoding="utf-8",
+            )
+            member = publications.find_members(root)[0]
+            self.assertEqual(member.publication_filter, "physics")
+
+    def test_profile_can_explicitly_include_a_misclassified_work(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "ada.md").write_text(
+                "---\nname: Ada Ray\nopenalex_id: A123456789\n"
+                "publication_filter: physics\npublication_include: W123456789\n---\n",
+                encoding="utf-8",
+            )
+            member = publications.find_members(root)[0]
+            self.assertEqual(member.publication_include, frozenset({"W123456789"}))
 
     def test_orcid_allowlist_matches_ids_and_titles_but_rejects_unverified_work(self):
         payload = {
@@ -93,6 +115,33 @@ class PublicationImporterTests(unittest.TestCase):
         unrelated = copy.deepcopy(title_match)
         unrelated["display_name"] = "An Unrelated Detector Paper"
         self.assertFalse(publications.work_is_allowlisted(unrelated, allowlist))
+
+    def test_physics_filter_uses_openalex_field(self):
+        physics = copy.deepcopy(SAMPLE_WORK)
+        physics["primary_topic"] = {
+            "field": {
+                "id": "https://openalex.org/fields/31",
+                "display_name": "Physics and Astronomy",
+            }
+        }
+        medicine = copy.deepcopy(SAMPLE_WORK)
+        medicine["primary_topic"] = {
+            "field": {
+                "id": "https://openalex.org/fields/27",
+                "display_name": "Medicine",
+            }
+        }
+        self.assertTrue(publications.work_is_physics(physics))
+        self.assertFalse(publications.work_is_physics(medicine))
+
+    def test_placeholder_titles_and_publisher_notes_are_rejected(self):
+        self.assertFalse(publications.has_meaningful_title({"display_name": "Untitled"}))
+        self.assertFalse(
+            publications.has_meaningful_title(
+                {"display_name": "Publisher’s Note: A Test of Strong-Field Gravity"}
+            )
+        )
+        self.assertTrue(publications.has_meaningful_title(SAMPLE_WORK))
 
     def test_render_contains_normalized_metadata(self):
         rendered = publications.render(SAMPLE_WORK, ["Ada Ray"])
@@ -153,7 +202,7 @@ class PublicationImporterTests(unittest.TestCase):
         self.assertEqual(publications.arxiv_id(record), "2605.01234")
         self.assertEqual(record["best_oa_location"]["pdf_url"], "https://arxiv.org/pdf/2605.01234")
 
-    def test_distinct_journal_papers_with_same_title_are_not_merged(self):
+    def test_same_title_records_with_a_shared_author_are_merged(self):
         first = copy.deepcopy(SAMPLE_WORK)
         second = copy.deepcopy(SAMPLE_WORK)
         first["ids"] = {}
@@ -162,6 +211,23 @@ class PublicationImporterTests(unittest.TestCase):
         second["doi"] = "https://doi.org/10.5678/different"
         second["ids"] = {}
         second["locations"] = []
+        works = {publications.work_key(first): first, publications.work_key(second): second}
+        provenance = {key: {"Ada Ray"} for key in works}
+        merged, _ = publications.deduplicate_works(works, provenance)
+        self.assertEqual(len(merged), 1)
+
+    def test_distinct_papers_with_same_title_and_different_authors_are_not_merged(self):
+        first = copy.deepcopy(SAMPLE_WORK)
+        second = copy.deepcopy(SAMPLE_WORK)
+        first["ids"] = {}
+        first["locations"] = []
+        second["id"] = "https://openalex.org/W111111111"
+        second["doi"] = "https://doi.org/10.5678/different"
+        second["ids"] = {}
+        second["locations"] = []
+        second["authorships"] = [
+            {"author": {"id": "https://openalex.org/A300", "display_name": "Cara Lens"}}
+        ]
         works = {publications.work_key(first): first, publications.work_key(second): second}
         provenance = {key: {"Ada Ray"} for key in works}
         merged, _ = publications.deduplicate_works(works, provenance)
