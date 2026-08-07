@@ -6,8 +6,8 @@ permalink: /news/
 ---
 <header class="page-hero"><div class="shell page-hero-inner"><p class="eyebrow">From the group</p><h1>News &amp; seminars.</h1><p class="page-intro">Announcements, research updates, invited speakers, visitors, and opportunities.</p></div></header>
 <div class="shell page-body">
-  {% assign featured_seminars = site.data.seminars | where: 'featured', true | sort: 'date_iso' | reverse %}
-  {% assign featured = featured_seminars | first %}
+  {% assign seminars = site.data.seminars | sort: 'date_iso' | reverse %}
+  {% assign featured = seminars | first %}
   {% if featured %}
     <section class="news-seminar-feature" aria-labelledby="featured-seminar-heading">
       <div class="news-seminar-date">
@@ -30,9 +30,8 @@ permalink: /news/
       <div><p class="eyebrow">Invited speakers</p><h2 class="section-title" id="recent-seminars-heading">Recent seminars.</h2></div>
       <p>The latest seminar program. Meeting times and titles may change.</p>
     </div>
-    {% assign recent_seminars = site.data.seminars | where_exp: 'seminar', 'seminar.featured != true' | sort: 'date_iso' | reverse %}
     <div class="news-grid">
-      {% for seminar in recent_seminars limit: 4 %}
+      {% for seminar in seminars offset: 1 limit: 4 %}
         <a class="news-card" href="{{ '/meetings/#seminar-schedule-heading' | relative_url }}"><time datetime="{{ seminar.date_iso }}">{{ seminar.date_iso | date: '%B %-d, %Y' }}</time><h2>{{ seminar.title }}</h2><p>{{ seminar.speaker }} · {{ seminar.affiliation }}</p></a>
       {% endfor %}
     </div>

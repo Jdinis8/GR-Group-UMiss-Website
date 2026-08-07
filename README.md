@@ -96,8 +96,8 @@ All invited talks—past and upcoming—belong in `_data/seminars.yml`. Add each
 talk once using a `date_iso` value in `YYYY-MM-DD` format. The website sorts
 the file automatically: the newest talks appear on the homepage, News &
 Seminars page, and Meetings page, while `/seminars/` shows the complete list by
-year. Add `featured: true` and an `abstract` when a talk should receive the
-larger feature on the News & Seminars page.
+year. The newest seminar automatically receives the larger feature on the News
+& Seminars page. Add an `abstract` to include one in that feature.
 
 ```yaml
 - date_iso: '2026-09-10'
