@@ -14,6 +14,7 @@ website: https://duetosymmetry.com/
 olemiss_profile: https://olemiss.edu/profiles/lcstein.php
 orcid: 0000-0001-7559-9597
 openalex_id: A5064122083
+inspire: https://inspirehep.net/authors/1056947?ui-citation-summary=true&ui-exclude-self-citations=true
 ---
 
 Leo studies the dynamics of black holes and gravitational waves, with an

@@ -6,6 +6,7 @@
       {% if publication.doi and publication.doi != empty %}<a href="https://doi.org/{{ publication.doi }}">{{ publication.title }}</a>
       {% elsif publication.arxiv and publication.arxiv != empty %}<a href="https://arxiv.org/abs/{{ publication.arxiv }}">{{ publication.title }}</a>
       {% elsif publication.url and publication.url != empty %}<a href="{{ publication.url }}">{{ publication.title }}</a>
+      {% elsif publication.inspire and publication.inspire != empty %}<a href="{{ publication.inspire }}">{{ publication.title }}</a>
       {% elsif publication.openalex and publication.openalex != empty %}<a href="{{ publication.openalex }}">{{ publication.title }}</a>
       {% else %}{{ publication.title }}{% endif %}
     </h3>
@@ -14,7 +15,10 @@
     <div class="publication-links">
       {% if publication.doi and publication.doi != empty %}<a href="https://doi.org/{{ publication.doi }}">DOI</a>{% endif %}
       {% if publication.arxiv and publication.arxiv != empty %}<a href="https://arxiv.org/abs/{{ publication.arxiv }}">arXiv</a>{% endif %}
-      {% if publication.doi == empty and publication.arxiv == empty and publication.openalex and publication.openalex != empty %}<a href="{{ publication.openalex }}">OpenAlex</a>{% endif %}
+      {% if publication.doi == empty and publication.arxiv == empty %}
+        {% if publication.inspire and publication.inspire != empty %}<a href="{{ publication.inspire }}">INSPIRE</a>
+        {% elsif publication.openalex and publication.openalex != empty %}<a href="{{ publication.openalex }}">OpenAlex</a>{% endif %}
+      {% endif %}
       {% if publication.pdf and publication.pdf != empty %}<a href="{{ publication.pdf | relative_url }}">PDF</a>{% endif %}
     </div>
   </div>

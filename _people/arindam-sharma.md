@@ -14,6 +14,8 @@ email: asharm17@go.olemiss.edu
 orcid: 0009-0005-6546-5567
 openalex_id: A5138260183
 inspire: "https://inspirehep.net/authors/3123112?ui-citation-summary=true&ui-exclude-self-citations=true"
+# OpenAlex currently indexes only the associated datasets, not Arindam's papers.
+publication_source: inspire
 ---
 
 Arindam studies how gravitational-wave observations can probe cosmology. His

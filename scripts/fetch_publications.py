@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Build Jekyll publication files from ORCIDs in _people/*.md.
+"""Build Jekyll publication files from identifiers in _people/*.md.
 
-The script uses only Python's standard library. It resolves each ORCID to an
-OpenAlex author, fetches that author's works, de-duplicates them, and writes
-machine-managed Markdown files to _publications/. Hand-authored files are never
-overwritten.
+The script uses only Python's standard library. It fetches works from OpenAlex
+and, when a profile has an INSPIRE author link, INSPIRE. It de-duplicates the
+combined records and writes machine-managed Markdown files to _publications/.
+Hand-authored files are never overwritten.
 """
 
 from __future__ import annotations
@@ -29,6 +29,7 @@ from typing import Any, Iterable
 
 API_ROOT = "https://api.openalex.org"
 ORCID_API_ROOT = "https://pub.orcid.org/v3.0"
+INSPIRE_API_ROOT = "https://inspirehep.net/api"
 ALLOWED_TYPES = {"article", "preprint", "book-chapter", "review"}
 ORCID_PATTERN = re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$")
 
@@ -38,6 +39,8 @@ class Member:
     name: str
     orcid: str
     openalex_id: str
+    inspire_id: str
+    publication_source: str
     publication_filter: str
     publication_include: frozenset[str]
     source: Path
@@ -115,6 +118,60 @@ class OpenAlexClient:
             cursor = payload.get("meta", {}).get("next_cursor")
 
 
+class InspireClient:
+    def __init__(self, pause: float = 0.1) -> None:
+        self.pause = pause
+
+    def _request_json(self, url: str) -> dict[str, Any]:
+        request = urllib.request.Request(
+            url,
+            headers={"Accept": "application/json", "User-Agent": "um-gravity-publications/1.0"},
+        )
+        last_error: Exception | None = None
+        for attempt in range(4):
+            try:
+                with urllib.request.urlopen(request, timeout=30) as response:
+                    result = json.load(response)
+                time.sleep(self.pause)
+                return result
+            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as error:
+                last_error = error
+                if attempt < 3:
+                    time.sleep(2**attempt)
+        raise RuntimeError(f"request failed for {url}: {last_error}")
+
+    def get(self, path: str, params: dict[str, str] | None = None) -> dict[str, Any]:
+        url = f"{INSPIRE_API_ROOT}/{path.lstrip('/')}"
+        if params:
+            url += "?" + urllib.parse.urlencode(params)
+        return self._request_json(url)
+
+    def works(self, inspire_id: str) -> Iterable[dict[str, Any]]:
+        # A numeric profile URL is a stable author-record reference and covers
+        # papers filed under older BAI/name variants. Raw BAI values still use
+        # INSPIRE's author-search operator.
+        query = (
+            f"authors.record.$ref:{inspire_id}"
+            if inspire_id.isdigit()
+            else f"a {inspire_id}"
+        )
+        page = 1
+        page_size = 100
+        while True:
+            payload = self.get(
+                "literature",
+                {"q": query, "size": str(page_size), "page": str(page)},
+            )
+            hits = (payload.get("hits") or {}).get("hits") or []
+            yield from hits
+            total = (payload.get("hits") or {}).get("total") or 0
+            if isinstance(total, dict):
+                total = total.get("value") or 0
+            if not hits or page * page_size >= int(total):
+                break
+            page += 1
+
+
 def front_matter(path: Path) -> dict[str, Any]:
     """Read the small scalar subset needed from a Jekyll profile."""
     text = path.read_text(encoding="utf-8")
@@ -134,6 +191,18 @@ def front_matter(path: Path) -> dict[str, Any]:
     return values
 
 
+def inspire_author_id(value: str) -> str:
+    """Accept either an INSPIRE author URL, numeric record ID, or BAI."""
+    value = str(value or "").strip()
+    if not value:
+        return ""
+    parsed = urllib.parse.urlparse(value)
+    if parsed.scheme or parsed.netloc:
+        match = re.search(r"/authors/([^/]+)", parsed.path)
+        return urllib.parse.unquote(match.group(1)) if match else ""
+    return value
+
+
 def find_members(directory: Path) -> list[Member]:
     members: list[Member] = []
     for path in sorted(directory.glob("*.md")):
@@ -144,13 +213,27 @@ def find_members(directory: Path) -> list[Member]:
             continue
         orcid = str(data.get("orcid", "")).removeprefix("https://orcid.org/").strip()
         openalex_id = str(data.get("openalex_id", "")).removeprefix("https://openalex.org/").strip().upper()
-        if not orcid and not openalex_id:
+        inspire_id = inspire_author_id(str(data.get("inspire", "")))
+        if not orcid and not openalex_id and not inspire_id:
             continue
         if orcid and not ORCID_PATTERN.fullmatch(orcid):
             print(f"warning: invalid ORCID {orcid!r} in {path}", file=sys.stderr)
             continue
         if openalex_id and not re.fullmatch(r"A\d+", openalex_id):
             print(f"warning: invalid OpenAlex author ID {openalex_id!r} in {path}", file=sys.stderr)
+            continue
+        if inspire_id and not re.fullmatch(r"(?:\d+|[A-Za-z][A-Za-z0-9.-]+)", inspire_id):
+            print(f"warning: invalid INSPIRE author ID {inspire_id!r} in {path}", file=sys.stderr)
+            continue
+        publication_source = str(data.get("publication_source", "openalex")).strip().casefold()
+        if publication_source not in {"openalex", "inspire", "both"}:
+            print(f"warning: invalid publication_source {publication_source!r} in {path}", file=sys.stderr)
+            continue
+        if publication_source in {"openalex", "both"} and not (orcid or openalex_id):
+            print(f"warning: publication_source {publication_source!r} requires an ORCID or OpenAlex ID in {path}", file=sys.stderr)
+            continue
+        if publication_source in {"inspire", "both"} and not inspire_id:
+            print(f"warning: publication_source {publication_source!r} requires an INSPIRE author link in {path}", file=sys.stderr)
             continue
         publication_filter = str(data.get("publication_filter", "")).strip().casefold()
         if publication_filter not in {"", "orcid", "physics"}:
@@ -166,6 +249,8 @@ def find_members(directory: Path) -> list[Member]:
                 str(data.get("name", path.stem)),
                 orcid,
                 openalex_id,
+                inspire_id,
+                publication_source,
                 publication_filter,
                 publication_include,
                 path,
@@ -284,6 +369,104 @@ def author_names(work: dict[str, Any]) -> list[str]:
         if name:
             names.append(str(name))
     return names
+
+
+def inspire_author_name(value: str) -> str:
+    """Convert INSPIRE's 'Family, Given' names to the site's display order."""
+    family, separator, given = str(value or "").partition(",")
+    if not separator:
+        return family.strip()
+    return f"{given.strip()} {family.strip()}".strip()
+
+
+def normalize_inspire_work(record: dict[str, Any]) -> dict[str, Any]:
+    """Translate an INSPIRE literature hit into the importer's work schema."""
+    metadata = record.get("metadata") or {}
+    control_number = str(record.get("id") or metadata.get("control_number") or "")
+    inspire_url = f"https://inspirehep.net/literature/{control_number}"
+
+    titles = metadata.get("titles") or []
+    title = str((titles[0] if titles else {}).get("title") or "")
+
+    publication_info = metadata.get("publication_info") or []
+    journal = next(
+        (item for item in publication_info if item.get("material") == "publication"),
+        publication_info[0] if publication_info else {},
+    )
+    imprints = metadata.get("imprints") or []
+    date = str(
+        (imprints[0] if imprints else {}).get("date")
+        or metadata.get("preprint_date")
+        or metadata.get("earliest_date")
+        or ""
+    )
+    year = journal.get("year") or (date[:4] if date else "")
+    if not date and year:
+        date = f"{year}-01-01"
+
+    dois = metadata.get("dois") or []
+    preferred_doi = next(
+        (item for item in dois if item.get("material") == "publication"),
+        dois[0] if dois else {},
+    )
+    doi = str(preferred_doi.get("value") or "")
+
+    arxiv_eprints = metadata.get("arxiv_eprints") or []
+    arxiv = str((arxiv_eprints[0] if arxiv_eprints else {}).get("value") or "")
+    arxiv_location = (
+        {
+            "landing_page_url": f"https://arxiv.org/abs/{arxiv}",
+            "pdf_url": f"https://arxiv.org/pdf/{arxiv}",
+            "source": {"display_name": "arXiv"},
+        }
+        if arxiv
+        else {}
+    )
+
+    authorships = []
+    for author in metadata.get("authors") or []:
+        reference = str((author.get("record") or {}).get("$ref") or "")
+        author_id = reference.replace("/api/authors/", "/authors/")
+        authorships.append(
+            {
+                "author": {
+                    "id": author_id,
+                    "display_name": inspire_author_name(author.get("full_name") or ""),
+                }
+            }
+        )
+
+    document_types = [str(item).casefold() for item in metadata.get("document_type") or []]
+    work_type = next((item for item in document_types if item in ALLOWED_TYPES), "")
+    if not work_type and "book chapter" in document_types:
+        work_type = "book-chapter"
+    if not work_type and "conference paper" in document_types:
+        work_type = "article"
+    work_type = work_type or (document_types[0] if document_types else "article")
+
+    venue = str(journal.get("journal_title") or ("arXiv" if arxiv else ""))
+    ids = {"inspire": inspire_url}
+    if arxiv:
+        ids["arxiv"] = f"https://arxiv.org/abs/{arxiv}"
+
+    return {
+        "id": inspire_url,
+        "doi": f"https://doi.org/{doi}" if doi else None,
+        "display_name": title,
+        "publication_year": int(year) if str(year).isdigit() else None,
+        "publication_date": date,
+        "type": work_type,
+        "authorships": authorships,
+        "primary_location": {"source": {"display_name": venue}} if venue else {},
+        "best_oa_location": arxiv_location,
+        "locations": [arxiv_location] if arxiv_location else [],
+        "ids": ids,
+        "biblio": {
+            "volume": journal.get("journal_volume") or "",
+            "issue": journal.get("journal_issue") or "",
+            "first_page": journal.get("artid") or journal.get("page_start") or "",
+        },
+    }
 
 
 def author_ids(work: dict[str, Any]) -> set[str]:
@@ -485,7 +668,14 @@ def yaml_string(value: Any) -> str:
 
 def render(work: dict[str, Any], matched_members: list[str]) -> str:
     names = author_names(work)
-    openalex = str(work.get("id", ""))
+    work_url = str(work.get("id", ""))
+    identifiers = work.get("ids") or {}
+    openalex = str(identifiers.get("openalex") or "")
+    if not openalex and "openalex.org/" in work_url:
+        openalex = work_url
+    inspire = str(identifiers.get("inspire") or "")
+    if not inspire and "inspirehep.net/literature/" in work_url:
+        inspire = work_url
     year = work.get("publication_year") or str(work.get("publication_date", ""))[:4]
     date = work.get("publication_date") or f"{year}-01-01"
     biblio = work.get("biblio") or {}
@@ -507,13 +697,17 @@ def render(work: dict[str, Any], matched_members: list[str]) -> str:
         f"doi: {yaml_string(clean_doi(work.get('doi')))}",
         f"arxiv: {yaml_string(arxiv_id(work))}",
         f"openalex: {yaml_string(openalex)}",
+    ]
+    if inspire:
+        lines.append(f"inspire: {yaml_string(inspire)}")
+    lines.extend([
         f"pdf: {yaml_string(pdf or '')}",
         f"work_type: {yaml_string(work.get('type') or '')}",
         "---",
         "",
         "<!-- This file is maintained by scripts/fetch_publications.py. -->",
         "",
-    ]
+    ])
     return "\n".join(lines)
 
 
@@ -541,7 +735,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", type=Path, default=Path("_publications"), help="publication directory")
     parser.add_argument("--since", default="1980-01-01", help="earliest publication date (YYYY-MM-DD)")
     parser.add_argument("--dry-run", action="store_true", help="report changes without writing files")
-    parser.add_argument("--prune", action="store_true", help="remove generated files no longer returned by OpenAlex")
+    parser.add_argument("--prune", action="store_true", help="remove generated files no longer returned by publication sources")
     parser.add_argument("--include-all-types", action="store_true", help="include books, datasets, and other non-paper works")
     return parser.parse_args()
 
@@ -556,14 +750,17 @@ def main() -> int:
 
     members = find_members(args.people)
     if not members:
-        print(f"No published profiles with valid ORCIDs or OpenAlex IDs found in {args.people}.")
-        print("Add an ORCID or openalex_id to a member profile, then run this command again.")
+        print(f"No published profiles with valid publication identifiers found in {args.people}.")
+        print("Add an ORCID, openalex_id, or inspire link to a profile, then run this command again.")
         return 0
 
     client = OpenAlexClient(os.environ.get("OPENALEX_EMAIL", ""))
+    inspire_client = InspireClient()
     resolved: dict[str, str] = {}
     member_author_ids: dict[str, str] = {}
     for member in members:
+        if member.publication_source not in {"openalex", "both"}:
+            continue
         try:
             author = client.author(member.openalex_id) if member.openalex_id else client.resolve_author(member.orcid)
         except RuntimeError as error:
@@ -581,6 +778,8 @@ def main() -> int:
     works: dict[str, dict[str, Any]] = {}
     provenance: dict[str, set[str]] = {}
     for member in members:
+        if member.publication_source not in {"openalex", "both"}:
+            continue
         author_id = member_author_ids.get(member.name)
         if not author_id:
             continue
@@ -622,6 +821,32 @@ def main() -> int:
             return 1
         if filtered:
             print(f"Filtered {filtered} unverified OpenAlex works for {member.name}.")
+
+    for member in members:
+        if member.publication_source not in {"inspire", "both"}:
+            continue
+        print(f"Fetching INSPIRE works for {member.name} since {args.since}…")
+        filtered = 0
+        try:
+            for record in inspire_client.works(member.inspire_id):
+                work = normalize_inspire_work(record)
+                publication_date = str(work.get("publication_date") or "")
+                if publication_date and publication_date < args.since:
+                    continue
+                if not args.include_all_types and work.get("type") not in ALLOWED_TYPES:
+                    continue
+                if not has_meaningful_title(work):
+                    filtered += 1
+                    continue
+                control_number = str(work.get("id") or "").rstrip("/").rsplit("/", 1)[-1]
+                key = f"inspire:{control_number}"
+                works[key] = work
+                provenance.setdefault(key, set()).add(member.name)
+        except RuntimeError as error:
+            print(f"error: could not load INSPIRE works for {member.name}: {error}", file=sys.stderr)
+            return 1
+        if filtered:
+            print(f"Filtered {filtered} invalid INSPIRE works for {member.name}.")
 
     raw_count = len(works)
     works, provenance = deduplicate_works(works, provenance)

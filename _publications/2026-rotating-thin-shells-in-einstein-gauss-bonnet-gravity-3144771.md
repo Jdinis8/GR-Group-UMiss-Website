@@ -6,15 +6,16 @@ year: 2026
 authors_display: "João D. Álvares, Tiago V. Fernandes"
 authors: ["João D. Álvares", "Tiago V. Fernandes"]
 group_authors: ["João D. Álvares"]
-venue: "arXiv (Cornell University)"
+venue: "arXiv"
 volume: ""
 issue: ""
 pages: ""
-doi: "10.48550/arxiv.2604.11888"
+doi: ""
 arxiv: "2604.11888"
-openalex: "https://openalex.org/W7154513998"
+openalex: ""
+inspire: "https://inspirehep.net/literature/3144771"
 pdf: "https://arxiv.org/pdf/2604.11888"
-work_type: "preprint"
+work_type: "article"
 ---
 
 <!-- This file is maintained by scripts/fetch_publications.py. -->

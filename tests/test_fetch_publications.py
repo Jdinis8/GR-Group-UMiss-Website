@@ -26,6 +26,28 @@ SAMPLE_WORK = {
     "biblio": {"volume": "111", "issue": "4", "first_page": "044001"},
 }
 
+SAMPLE_INSPIRE_RECORD = {
+    "id": "3165028",
+    "metadata": {
+        "titles": [
+            {"title": "Shape of U: Measuring the Curvature of the Universe with Gravitational Waves"}
+        ],
+        "authors": [
+            {
+                "full_name": "Sharma, Arindam",
+                "record": {"$ref": "https://inspirehep.net/api/authors/3123112"},
+            },
+            {
+                "full_name": "Gupta, Anuradha",
+                "record": {"$ref": "https://inspirehep.net/api/authors/1730809"},
+            },
+        ],
+        "preprint_date": "2026-06-02",
+        "document_type": ["article"],
+        "arxiv_eprints": [{"value": "2606.04216"}],
+    },
+}
+
 
 class PublicationImporterTests(unittest.TestCase):
     def test_finds_only_published_profiles_with_valid_orcids(self):
@@ -48,6 +70,34 @@ class PublicationImporterTests(unittest.TestCase):
             )
             members = publications.find_members(root)
             self.assertEqual([(member.name, member.openalex_id) for member in members], [("Ada Ray", "A123456789")])
+
+    def test_profile_can_use_inspire_author_url_as_a_publication_source(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "arindam.md").write_text(
+                "---\nname: Arindam Sharma\n"
+                "inspire: https://inspirehep.net/authors/3123112?ui-citation-summary=true\n"
+                "publication_source: inspire\n---\n",
+                encoding="utf-8",
+            )
+            member = publications.find_members(root)[0]
+            self.assertEqual(member.inspire_id, "3123112")
+            self.assertEqual(member.publication_source, "inspire")
+
+    def test_inspire_numeric_author_id_searches_the_stable_record_reference(self):
+        class FakeInspireClient(publications.InspireClient):
+            def __init__(self):
+                super().__init__(pause=0)
+                self.queries = []
+
+            def get(self, path, params=None):
+                self.queries.append(params)
+                return {"hits": {"total": 1, "hits": [SAMPLE_INSPIRE_RECORD]}}
+
+        client = FakeInspireClient()
+        records = list(client.works("3123112"))
+        self.assertEqual(records, [SAMPLE_INSPIRE_RECORD])
+        self.assertEqual(client.queries[0]["q"], "authors.record.$ref:3123112")
 
     def test_profile_can_filter_ambiguous_openalex_record_through_orcid(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -149,6 +199,15 @@ class PublicationImporterTests(unittest.TestCase):
         self.assertIn('arxiv: "2605.01234"', rendered)
         self.assertIn('venue: "Physical Review D"', rendered)
         self.assertIn('group_authors: ["Ada Ray"]', rendered)
+
+    def test_inspire_work_is_normalized_and_rendered_with_arxiv_metadata(self):
+        work = publications.normalize_inspire_work(SAMPLE_INSPIRE_RECORD)
+        self.assertEqual(work["publication_date"], "2026-06-02")
+        self.assertEqual(publications.author_names(work), ["Arindam Sharma", "Anuradha Gupta"])
+        self.assertEqual(publications.arxiv_id(work), "2606.04216")
+        rendered = publications.render(work, ["Arindam Sharma"])
+        self.assertIn('inspire: "https://inspirehep.net/literature/3165028"', rendered)
+        self.assertIn('group_authors: ["Arindam Sharma"]', rendered)
 
     def test_work_key_prefers_doi(self):
         self.assertEqual(publications.work_key(SAMPLE_WORK), "doi:10.1234/example")

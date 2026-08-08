@@ -115,7 +115,11 @@ places when adding or renaming an area.
 ## Update publications
 
 The importer reads the identifiers in current member profiles, downloads their
-works from OpenAlex, and writes the results to `_publications/`.
+works from OpenAlex and INSPIRE, and writes the results to `_publications/`.
+OpenAlex is the default source. Set `publication_source: inspire` on a profile
+to use its `inspire` author link instead, or `publication_source: both` to use
+both services. Records from both services are merged by DOI, arXiv ID, and
+title.
 
 Preview an update first:
 
@@ -142,7 +146,7 @@ python3 scripts/fetch_publications.py --include-all-types
 The default start date is 1980. Be careful when combining a later `--since`
 date with `--prune`: older generated files will be removed.
 
-The importer merges duplicate DOI, arXiv, and title records. When both a
+The importer merges duplicate DOI, arXiv, and title records across sources. When both a
 preprint and journal article exist, it keeps the journal metadata and retains
 the arXiv link when possible. Files marked `generated: true` belong to the
 importer; hand-written publication files are left alone.
@@ -153,6 +157,11 @@ that person's ORCID record. If the ORCID list is incomplete,
 `publication_filter: physics` instead accepts only work that OpenAlex
 classifies under Physics and Astronomy. Luca Bombelli uses the ORCID filter;
 Anuradha Gupta and Nicholas MacDonald use the topic filter.
+
+If INSPIRE has the more accurate author record, add the profile's `inspire`
+link and set `publication_source: inspire`. Arindam Sharma uses this setting
+because OpenAlex currently associates his author record with datasets but not
+the corresponding papers.
 
 If OpenAlex misclassifies a legitimate paper, add its `W...` identifier to the
 profile's comma-separated `publication_include` field. This explicit exception

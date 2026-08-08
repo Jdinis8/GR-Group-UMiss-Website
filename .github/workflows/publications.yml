@@ -25,7 +25,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Fetch works from OpenAlex
+      - name: Fetch works from OpenAlex and INSPIRE
         run: python3 scripts/fetch_publications.py --since "${{ inputs.since || '1980-01-01' }}" --prune
         env:
           OPENALEX_EMAIL: ${{ vars.OPENALEX_EMAIL }}
