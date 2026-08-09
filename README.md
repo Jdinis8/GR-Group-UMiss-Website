@@ -112,6 +112,36 @@ The six detailed research pages live in `_projects/`. Their shorter homepage
 and Research-page descriptions are in `_data/research_topics.yml`. Update both
 places when adding or renaming an area.
 
+## Replace the homepage hero visual
+
+The animated orbit artwork is isolated in
+`_includes/home-hero-visual.html`. To replace it with another inline SVG or
+animation, edit only the contents of that include. Keep the surrounding
+`.hero-media` element in `index.html`: it provides the positioning, responsive
+sizing, and subtle pointer movement independently of the artwork.
+
+To use a static picture instead:
+
+1. Add an optimized WebP or JPEG under `assets/images/`. A square image works
+   best with the current layout.
+2. Replace the contents of `_includes/home-hero-visual.html` with an image:
+
+```html
+<img src="{{ '/assets/images/home-hero.webp' | relative_url }}"
+     alt="" width="1600" height="1600">
+```
+
+The empty `alt` text is intentional because the hero wrapper is currently
+decorative and marked `aria-hidden`. If a future visual communicates important
+information, remove `aria-hidden="true"` from the `.hero-media` element in
+`index.html` and provide meaningful alternative text.
+
+Artwork-specific styles are in the Homepage hero section of
+`assets/css/main.css`. The general `.hero-media` rules already support inline
+SVGs and static images. New animation styles must continue to respect the
+existing `prefers-reduced-motion` rule near the end of that file. Preview the
+site locally after a replacement to check desktop and phone cropping.
+
 ## Update publications
 
 The importer reads the identifiers in current member profiles, downloads their

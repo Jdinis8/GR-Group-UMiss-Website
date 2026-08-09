@@ -24,12 +24,12 @@
     }));
   }
 
-  const orbit = document.querySelector('[data-orbit]');
-  if (orbit && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const heroMedia = document.querySelector('[data-hero-media]');
+  if (heroMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     window.addEventListener('pointermove', (event) => {
       const x = (event.clientX / window.innerWidth - 0.5) * 10;
       const y = (event.clientY / window.innerHeight - 0.5) * 10;
-      orbit.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      heroMedia.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     }, { passive: true });
   }
 
