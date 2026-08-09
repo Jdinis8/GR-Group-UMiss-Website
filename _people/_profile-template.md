@@ -13,18 +13,18 @@ research:
   - Primary research interest
   - Secondary research interest
 email: person@olemiss.edu
-website:
-olemiss_profile:
-scholar:
+website: https://your-website.example/
+olemiss_profile: https://olemiss.edu/profiles/your-webid.php
+scholar: https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID
 orcid: 0000-0000-0000-0000
 # Optional but recommended when OpenAlex has duplicate ORCID records.
-openalex_id:
+openalex_id: A1234567890
 # Optional safeguard for a contaminated OpenAlex author record: orcid or physics
-publication_filter:
+publication_filter: orcid
 # Optional comma-separated OpenAlex work IDs that should bypass the filter.
-publication_include:
-inspire:
-cv:
+publication_include: W1234567890, W0987654321
+inspire: https://inspirehep.net/authors/1234567
+cv: /assets/files/first-last-cv.pdf
 ---
 
 Write a short biography here. Plain Markdown is supported, so additional links,
