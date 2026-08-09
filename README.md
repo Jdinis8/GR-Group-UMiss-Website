@@ -189,9 +189,7 @@ classifies under Physics and Astronomy. Luca Bombelli uses the ORCID filter;
 Anuradha Gupta and Nicholas MacDonald use the topic filter.
 
 If INSPIRE has the more accurate author record, add the profile's `inspire`
-link and set `publication_source: inspire`. Arindam Sharma uses this setting
-because OpenAlex currently associates his author record with datasets but not
-the corresponding papers.
+link and set `publication_source: inspire`.
 
 If OpenAlex misclassifies a legitimate paper, add its `W...` identifier to the
 profile's comma-separated `publication_include` field. This explicit exception
