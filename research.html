@@ -14,7 +14,14 @@ permalink: /research/
 <div class="shell research-index">
   <div class="research-cards">
     {% for topic in site.data.research_topics %}
-      <a class="research-card" href="{{ '/research/' | append: topic.slug | append: '/' | relative_url }}"><span class="topic-number">{{ topic.number }}</span><h2>{{ topic.title }}</h2><p>{{ topic.description }}</p></a>
+      <article class="research-card">
+        <span class="topic-number">{{ topic.number }}</span>
+        <h2><a class="research-card-link" href="{{ '/research/' | append: topic.slug | append: '/' | relative_url }}">{{ topic.title }}</a></h2>
+        <p>{{ topic.description }}</p>
+        {% if topic.faculty %}
+          <p class="research-faculty">{% if topic.faculty.size == 1 %}Professor{% else %}Professors{% endif %}: {% for professor in topic.faculty %}<a href="{{ '/people/' | append: professor.slug | append: '/' | relative_url }}">{{ professor.name }}</a>{% unless forloop.last %}{% if forloop.rindex == 2 %} and {% else %}, {% endif %}{% endunless %}{% endfor %}</p>
+        {% endif %}
+      </article>
     {% endfor %}
   </div>
 </div>

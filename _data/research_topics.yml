@@ -2,23 +2,47 @@
   title: Gravitational-wave astronomy
   description: We use current and future gravitational-wave observations to study compact objects, cosmology, and gravity.
   slug: gravitational-waves
+  faculty:
+    - name: Anuradha Gupta
+      slug: anuradha-gupta
+    - name: Leo C. Stein
+      slug: leo-stein
 - number: "02"
   title: Compact binaries & waveforms
   description: We model eccentric, spinning, and precessing compact binaries with analytical and numerical relativity.
   slug: compact-objects
+  faculty:
+    - name: Anuradha Gupta
+      slug: anuradha-gupta
+    - name: Leo C. Stein
+      slug: leo-stein
 - number: "03"
   title: Strong-field gravity
   description: We test general relativity around black holes and neutron stars and search for signs of new gravitational physics.
   slug: strong-field-gravity
+  faculty:
+    - name: Anuradha Gupta
+      slug: anuradha-gupta
+    - name: Leo C. Stein
+      slug: leo-stein
 - number: "04"
   title: Relativistic jets
   description: We combine radio observations, polarimetry, theory, and simulations to study plasma jets launched by black holes.
   slug: relativistic-jets
+  faculty:
+    - name: Nicholas R. MacDonald
+      slug: nicholas-macdonald
 - number: "05"
   title: Quantum spacetime & geometry
   description: We study causal structure, quantum gravity, curved spacetime, and the geometry underlying gravitational phenomena.
   slug: spacetime-foundations
+  faculty:
+    - name: Luca Bombelli
+      slug: luca-bombelli
 - number: "06"
   title: Field theory & bootstrap
   description: We use effective field theory, scattering amplitudes, positivity, and bootstrap methods to study consistency in physical theories.
   slug: field-theory-bootstrap
+  faculty:
+    - name: James Bonifacio
+      slug: james-bonifacio

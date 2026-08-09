@@ -278,11 +278,18 @@ a.former-member-name:hover { color: var(--red); }
 /* Research index cards */
 .research-index { padding: 100px 0 140px; }
 .research-cards { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-.research-card { min-height: 370px; padding: 38px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; transition: background .25s, color .25s; }
+.research-card { position: relative; min-height: 370px; padding: 38px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); color: inherit; transition: background .25s, color .25s; }
 .research-card:hover { background: var(--night); color: white; }
 .research-card .topic-number { display: block; margin-bottom: 100px; }
 .research-card h2 { margin: 0 0 16px; font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; line-height: 1; }
+.research-card-link { color: inherit; text-decoration: none; }
+.research-card-link::after { position: absolute; inset: 0; content: ""; }
+.research-card-link:focus-visible { outline: none; }
+.research-card:has(.research-card-link:focus-visible) { outline: 2px solid var(--red); outline-offset: -2px; }
 .research-card p { margin: 0; color: var(--muted); }
+.research-card .research-faculty { position: relative; z-index: 1; margin-top: 18px; font-size: .86rem; }
+.research-faculty a { color: inherit; text-decoration-color: var(--red); text-underline-offset: 3px; }
+.research-faculty a:hover { color: var(--red); }
 .research-card:hover p { color: rgba(255,255,255,.6); }
 
 /* News page and featured seminar */

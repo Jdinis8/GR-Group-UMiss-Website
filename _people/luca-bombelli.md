@@ -3,13 +3,13 @@ name: Luca Bombelli
 last_name: Bombelli
 role: full-professor
 role_label: Full Professor
-tagline: Gravitational theory, quantum spacetime, causal structure, and geometry.
+tagline: Classical gravitational physics, quantum gravity, and the structure of spacetime.
 photo: /assets/images/people/lbombelli.jpeg
 research:
-  - Quantum gravity and causal sets
-  - Lorentzian and Riemannian geometry
-  - General-relativistic chaos
-  - Waves and particles in curved spacetime
+  - Quantum gravity and quantum spacetime
+  - Classical gravitational physics
+  - Solutions of Einstein’s equations
+  - Motion and chaos in curved spacetimes
 email: bombelli@olemiss.edu
 olemiss_profile: https://olemiss.edu/profiles/bombelli.php
 orcid: 0000-0002-3471-359X
@@ -19,7 +19,8 @@ publication_filter: orcid
 inspire: "https://inspirehep.net/authors/1015909?ui-citation-summary=true&ui-exclude-self-citations=true"
 ---
 
-Luca is a theoretical physicist whose research spans classical and quantum
-gravity. He studies the geometry and causal structure of spacetime, discrete
-approaches to quantum gravity, and classical phenomena including chaotic motion
-and radiation in curved spacetimes.
+Luca is a theoretical physicist working in gravitational physics. His classical
+research examines solutions of Einstein’s equations and the motion of bodies
+in curved spacetimes, including chaotic motion. His current work is primarily
+motivated by quantum gravity and the development of a theory of quantum
+spacetime.
