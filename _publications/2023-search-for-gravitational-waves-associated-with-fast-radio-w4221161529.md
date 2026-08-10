@@ -11,9 +11,9 @@ volume: "955"
 issue: "2"
 pages: "155"
 doi: "10.3847/1538-4357/acd770"
-arxiv: ""
+arxiv: "2203.12038"
 openalex: "https://openalex.org/W4221161529"
-pdf: "https://eprints.whiterose.ac.uk/203848/1/Abbott_2023_ApJ_955_155.pdf"
+pdf: "https://arxiv.org/pdf/2203.12038"
 work_type: "article"
 ---
 

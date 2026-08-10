@@ -13,7 +13,7 @@ pages: "L18"
 doi: "10.3847/2041-8213/ae0c06"
 arxiv: ""
 openalex: "https://openalex.org/W4416020920"
-pdf: "https://hdl.handle.net/21.11116/0000-0013-22C2-9"
+pdf: "https://lirias.kuleuven.be/retrieve/691f2899-77cf-45a0-ba21-bc112e0ad821"
 work_type: "article"
 ---
 

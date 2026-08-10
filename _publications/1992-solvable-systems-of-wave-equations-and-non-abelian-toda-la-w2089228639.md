@@ -13,7 +13,7 @@ pages: "1309"
 doi: "10.1088/0305-4470/25/5/032"
 arxiv: ""
 openalex: "https://openalex.org/W2089228639"
-pdf: ""
+pdf: "https://iopscience.iop.org/article/10.1088/0305-4470/25/5/032/pdf"
 work_type: "article"
 ---
 

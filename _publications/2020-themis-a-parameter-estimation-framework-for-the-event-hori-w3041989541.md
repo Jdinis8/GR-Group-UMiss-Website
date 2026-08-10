@@ -13,7 +13,7 @@ pages: "139"
 doi: "10.3847/1538-4357/ab91a4"
 arxiv: ""
 openalex: "https://openalex.org/W3041989541"
-pdf: "https://dare.uva.nl/personal/pure/en/publications/themis-a-parameter-estimation-framework-for-the-event-horizon-telescope(7df7d96f-e0b9-4172-9f11-70763b65ad06).html"
+pdf: "https://iopscience.iop.org/article/10.3847/1538-4357/ab91a4/pdf"
 work_type: "article"
 ---
 

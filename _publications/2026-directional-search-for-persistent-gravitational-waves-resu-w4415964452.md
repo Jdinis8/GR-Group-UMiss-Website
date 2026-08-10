@@ -11,9 +11,9 @@ volume: "114"
 issue: "2"
 pages: ""
 doi: "10.1103/wgp7-t8r8"
-arxiv: "2510.17487"
+arxiv: ""
 openalex: "https://openalex.org/W4415964452"
-pdf: "https://arxiv.org/pdf/2510.17487"
+pdf: "https://pure-oai.bham.ac.uk/ws/files/309976365/wgp7-t8r8.pdf"
 work_type: "article"
 ---
 

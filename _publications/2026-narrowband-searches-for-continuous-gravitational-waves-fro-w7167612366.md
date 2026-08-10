@@ -11,9 +11,9 @@ volume: "1005"
 issue: "2"
 pages: "221"
 doi: "10.3847/1538-4357/ae77fc"
-arxiv: "2603.25938"
+arxiv: ""
 openalex: "https://openalex.org/W7167612366"
-pdf: "https://arxiv.org/pdf/2603.25938"
+pdf: "https://eprints.gla.ac.uk/391473/1/391473.pdf"
 work_type: "article"
 ---
 
