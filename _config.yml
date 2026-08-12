@@ -3,7 +3,7 @@ short_title: UM Gravity
 description: >-
   We study gravity from quantum spacetime and fundamental field theory to
   compact binaries, gravitational waves, and relativistic black-hole jets.
-url: "https://jdinis8.github.io"
+# url: "https://jdinis8.github.io"
 baseurl: "/GR-Group-UMiss-Website"
 lang: en
 timezone: America/Chicago
