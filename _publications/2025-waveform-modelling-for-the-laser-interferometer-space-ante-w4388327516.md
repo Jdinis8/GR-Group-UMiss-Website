@@ -13,7 +13,7 @@ pages: ""
 doi: "10.1007/s41114-025-00056-1"
 arxiv: "2311.01300"
 openalex: "https://openalex.org/W4388327516"
-pdf: "https://arxiv.org/pdf/2311.01300"
+pdf: "https://orca.cardiff.ac.uk/id/eprint/182174/1/41114_2025_Article_56.pdf"
 work_type: "article"
 ---
 

@@ -13,7 +13,7 @@ pages: "L51"
 doi: "10.3847/2041-8213/ae771e"
 arxiv: ""
 openalex: "https://openalex.org/W7168158497"
-pdf: "https://air.uniud.it/bitstream/11390/1336447/1/Abac_2026_ApJL_1005_L51.pdf"
+pdf: "https://eprints.gla.ac.uk/391921/1/391921.pdf"
 work_type: "article"
 ---
 

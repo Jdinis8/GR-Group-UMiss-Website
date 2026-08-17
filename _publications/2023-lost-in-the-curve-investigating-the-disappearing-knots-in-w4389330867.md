@@ -13,7 +13,7 @@ pages: "A154"
 doi: "10.1051/0004-6361/202347267"
 arxiv: ""
 openalex: "https://openalex.org/W4389330867"
-pdf: ""
+pdf: "https://www.aanda.org/10.1051/0004-6361/202347267/pdf"
 work_type: "article"
 ---
 

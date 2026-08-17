@@ -11,9 +11,9 @@ volume: "955"
 issue: "2"
 pages: "155"
 doi: "10.3847/1538-4357/acd770"
-arxiv: "2203.12038"
+arxiv: ""
 openalex: "https://openalex.org/W4221161529"
-pdf: "https://arxiv.org/pdf/2203.12038"
+pdf: "https://www.zora.uzh.ch/id/eprint/240127/1/ZORA240127.pdf"
 work_type: "article"
 ---
 

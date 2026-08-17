@@ -13,7 +13,7 @@ pages: "99"
 doi: "10.3847/1538-4357/adb3a0"
 arxiv: ""
 openalex: "https://openalex.org/W4406092706"
-pdf: "https://lirias.kuleuven.be/retrieve/4b42d231-ab62-49fa-804d-a9d6708b0f81"
+pdf: "https://curis.ku.dk/ws/files/454226981/Abac_2025_ApJ_983_99.pdf"
 work_type: "article"
 ---
 

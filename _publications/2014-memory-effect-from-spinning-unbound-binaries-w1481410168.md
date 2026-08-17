@@ -13,7 +13,7 @@ pages: "259"
 doi: "10.1007/978-3-319-10488-1_22"
 arxiv: "1410.6605"
 openalex: "https://openalex.org/W1481410168"
-pdf: "https://arxiv.org/pdf/1410.6605"
+pdf: "https://www.zora.uzh.ch/id/eprint/121623/1/1410.6605v1.pdf"
 work_type: "book-chapter"
 ---
 

@@ -13,7 +13,7 @@ pages: ""
 doi: "10.1103/wgp7-t8r8"
 arxiv: ""
 openalex: "https://openalex.org/W4415964452"
-pdf: "https://pure-oai.bham.ac.uk/ws/files/309976365/wgp7-t8r8.pdf"
+pdf: "https://eprints.gla.ac.uk/391982/1/391982.pdf"
 work_type: "article"
 ---
 

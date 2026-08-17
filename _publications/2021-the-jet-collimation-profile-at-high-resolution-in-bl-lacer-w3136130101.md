@@ -13,7 +13,7 @@ pages: ""
 doi: "10.1051/0004-6361/202039616/pdf"
 arxiv: ""
 openalex: "https://openalex.org/W3136130101"
-pdf: ""
+pdf: "https://www.aanda.org/10.1051/0004-6361/202039616/pdf"
 work_type: "article"
 ---
 

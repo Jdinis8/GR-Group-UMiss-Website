@@ -11,9 +11,9 @@ volume: "964"
 issue: "2"
 pages: "149"
 doi: "10.3847/1538-4357/ad1eed"
-arxiv: "2308.13666"
+arxiv: ""
 openalex: "https://openalex.org/W4386269533"
-pdf: "https://arxiv.org/pdf/2308.13666"
+pdf: "https://pure.uva.nl/ws/files/271810570/Fletcher_2024_ApJ_964_149.pdf"
 work_type: "article"
 ---
 

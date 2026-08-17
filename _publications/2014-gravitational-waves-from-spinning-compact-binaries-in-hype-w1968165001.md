@@ -13,7 +13,7 @@ pages: ""
 doi: "10.1103/physrevd.90.124066"
 arxiv: "1410.6311"
 openalex: "https://openalex.org/W1968165001"
-pdf: "https://arxiv.org/pdf/1410.6311"
+pdf: "https://www.zora.uzh.ch/id/eprint/108164/1/1410.6311v3.pdf"
 work_type: "article"
 ---
 
