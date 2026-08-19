@@ -3,6 +3,9 @@ short_title: UM Gravity
 description: >-
   We study gravity from quantum spacetime and fundamental field theory to
   compact binaries, gravitational waves, and relativistic black-hole jets.
+# LCS: Leave url commented out here; github will build this to deploy in its own
+# default github-pages place. Then we override it with the file
+# _config_UMiss.yml which has our *official* deployment site.
 # url: "https://jdinis8.github.io"
 baseurl: "/GR-Group-UMiss-Website"
 lang: en
