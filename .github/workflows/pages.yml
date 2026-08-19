@@ -42,6 +42,9 @@ jobs:
         uses: actions/deploy-pages@v4
   umiss:
     runs-on: ubuntu-latest
+    # This `needs` is actually a lie... but I don't want to risk two instances
+    # of `jekyll buld` with different configs trying to write to the same _site
+    needs: deploy
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
