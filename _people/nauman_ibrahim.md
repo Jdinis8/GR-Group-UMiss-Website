@@ -5,7 +5,7 @@ last_name: Ibrahim
 # Allowed roles: full-professor, associate-professor, assistant-professor,
 # postdoc, phd-student, masters-student, undergraduate, staff, affiliate
 role: staff
-role_label: PhD Student
+role_label: Research Associate
 photo: /assets/images/people/first-last.webp
 tagline: A one-sentence description of this researcher’s work.
 research:
