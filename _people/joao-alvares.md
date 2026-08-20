@@ -9,7 +9,7 @@ website: https://jdinis8.github.io/
 tagline: Numerical relativity, hyperboloidal evolution, and gravitational-wave physics.
 research:
   - Numerical relativity
-  - Hyperboloidal evolution
+  - Post-Newtonian Theory
   - Black-hole dynamics
   - Gravitational waves
 orcid: 0000-0001-5501-9014
@@ -20,4 +20,5 @@ publication_source: inspire
 
 João works in numerical relativity, focusing on hyperboloidal methods, compact
 objects, and the extraction and interpretation of radiation at future null
-infinity.
+infinity. Recently, he shifted to Post-Newtonian theory, while also working 
+in Relativistic Positioning Systems, and understanding radiation produced by radiation.
