@@ -1,9 +1,6 @@
 ---
-# Copy this file to _people/first-last.md, then remove `published: false`.
 name: Nauman Ibrahim
 last_name: Ibrahim
-# Allowed roles: full-professor, associate-professor, assistant-professor,
-# postdoc, phd-student, masters-student, undergraduate, staff, affiliate
 role: staff
 role_label: Research Associate
 photo: /assets/images/people/nibrahim.jpeg
@@ -13,16 +10,9 @@ research:
   - Alternate theories of gravity
 email: naumanibrahimsh@protonmail.com
 website: https://sniafrmpk.github.io/
-#olemiss_profile: https://olemiss.edu/profiles/your-webid.php
 orcid: 0009-0004-5716-840X
-# Optional but recommended when OpenAlex has duplicate ORCID records.
-#openalex_id: A1234567890
-# Optional safeguard for a contaminated OpenAlex author record: orcid or physics
 publication_filter: orcid
-# Optional comma-separated OpenAlex work IDs that should bypass the filter.
-#publication_include: W1234567890, W0987654321
-#inspire: https://inspirehep.net/authors/1234567
-#cv: /assets/files/first-last-cv.pdf
+
 ---
 
 My research centers on constructing a Weyl tensor analog for causal sets — locally finite partially ordered sets meant to represent the underlying discrete structure of spacetime. Our approach rests on the fact that geodesic deviation in a spacetime depends on curvature. Applying this to causal sets first requires generating causal sets that are not conformally flat. We did this by developing a criterion for determining, from their coordinates, whether two points in a gravitational wave spacetime are causally related; a causal set is then obtained by sprinkling points at random (Poisson process) and applying this criterion to each pair.
