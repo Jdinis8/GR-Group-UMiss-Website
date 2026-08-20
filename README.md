@@ -50,6 +50,11 @@ Students while retaining their individual `role_label`. People are sorted by
 Profile links are optional. The supported fields are `email`, `website`,
 `olemiss_profile`, `scholar`, `orcid`, `openalex_id`, `inspire`, and `cv`.
 
+Math in Markdown content is rendered with MathJax. Wrap inline LaTeX in single
+dollar signs, such as `$d=2$`, and display equations in double dollar signs.
+Keep LaTeX commands inside math delimiters; use normal Markdown such as
+`*emphasis*` for prose formatting.
+
 ## Add a former member
 
 Former members are listed in `_data/former_members.yml`. Add the name under the

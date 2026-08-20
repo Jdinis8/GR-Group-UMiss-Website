@@ -4,24 +4,46 @@
   const menu = document.querySelector('[data-menu]');
 
   const setHeaderState = () => {
-    if (!header) return;
+    if (!header || document.body.classList.contains('menu-open')) return;
     header.classList.toggle('is-scrolled', window.scrollY > 96);
   };
   setHeaderState();
   window.addEventListener('scroll', setHeaderState, { passive: true });
 
   if (menuToggle && menu) {
-    menuToggle.addEventListener('click', () => {
-      const open = menuToggle.getAttribute('aria-expanded') !== 'true';
+    let menuScrollY = 0;
+    const setMenuState = (open) => {
       menuToggle.setAttribute('aria-expanded', String(open));
       menu.classList.toggle('is-open', open);
-      document.body.classList.toggle('menu-open', open);
+
+      if (open) {
+        menuScrollY = window.scrollY;
+        document.body.style.top = `-${menuScrollY}px`;
+        document.body.classList.add('menu-open');
+        return;
+      }
+
+      document.body.classList.remove('menu-open');
+      document.body.style.top = '';
+      const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo(0, menuScrollY);
+      document.documentElement.style.scrollBehavior = previousScrollBehavior;
+      setHeaderState();
+    };
+
+    menuToggle.addEventListener('click', () => {
+      const open = menuToggle.getAttribute('aria-expanded') !== 'true';
+      setMenuState(open);
     });
     menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
-      menuToggle.setAttribute('aria-expanded', 'false');
-      menu.classList.remove('is-open');
-      document.body.classList.remove('menu-open');
+      setMenuState(false);
     }));
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || menuToggle.getAttribute('aria-expanded') !== 'true') return;
+      setMenuState(false);
+      menuToggle.focus();
+    });
   }
 
   const heroMedia = document.querySelector('[data-hero-media]');
