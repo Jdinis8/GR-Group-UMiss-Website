@@ -3,6 +3,7 @@ name: Aniket Khairnar
 last_name: Khairnar
 role: postdoc
 role_label: Postdoctoral Researcher
+photo: /assets/images/people/akhairnar.jpeg
 tagline: Gravitational-wave modeling, post-Newtonian theory, and asymptotic symmetries.
 research:
   - Gravitational waves
